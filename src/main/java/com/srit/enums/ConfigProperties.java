@@ -1,0 +1,15 @@
+package com.srit.enums;
+
+public enum ConfigProperties {
+
+	URL,
+	OVERRIDEREPORTS,
+	PASSEDSTEPSSCREENSHOT,
+	FAILEDSTEPSSCREENSHOT,
+	SKIPPEDSTEPSSCREENSHOT,
+
+	RETRY,
+	BROWSER;
+	
+	
+}
