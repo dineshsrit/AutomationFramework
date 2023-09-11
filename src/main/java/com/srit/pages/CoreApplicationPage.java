@@ -39,6 +39,8 @@ public class CoreApplicationPage extends BasePage{
 
     private final By lk_rorCert=By.xpath("//*[contains(text(),'ROR')]");
 
+    private final By lk_solCert=By.xpath("//*[contains(text(),'Solvency')]");
+
     private final By lk_applicationsbox=By.linkText("Applications Box");
 
     private final By lk_mypendingapplications=By.linkText("My Pending Applications");
@@ -54,7 +56,7 @@ public class CoreApplicationPage extends BasePage{
 
     private final By lk_issuanceRorCertificate=By.xpath("//*[contains(text(),'ROR')]");
 
-
+    private final By lk_issuanceSolCertificate=By.xpath("//*[contains(text(),'Solvency')]");
 
 
     public CoreApplicationPage enter_username(String username) throws Exception
@@ -161,6 +163,13 @@ public class CoreApplicationPage extends BasePage{
         click(lk_rorCert, WaitStrategy.CLICKABLE);
         return new RORPage();
     }
+    public SolvencyPage click_solCertificate()
+    {
+        click(lk_solCert, WaitStrategy.CLICKABLE);
+        return new SolvencyPage();
+    }
+
+
 
     public WebElement getassetCertificate()
     {
@@ -214,4 +223,9 @@ public class CoreApplicationPage extends BasePage{
         return this;
     }
 
+    public CoreApplicationPage click_solapplications()
+    {
+        click(lk_issuanceSolCertificate, WaitStrategy.CLICKABLE);
+        return this;
+    }
 }
