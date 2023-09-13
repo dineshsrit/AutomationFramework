@@ -41,6 +41,7 @@ public class CoreApplicationPage extends BasePage{
 
     private final By lk_solCert=By.xpath("//*[contains(text(),'Solvency')]");
 
+    private final By lk_guaCert=By.xpath("//*[contains(text(),'Guardianship')]");
     private final By lk_applicationsbox=By.linkText("Applications Box");
 
     private final By lk_mypendingapplications=By.linkText("My Pending Applications");
@@ -58,7 +59,7 @@ public class CoreApplicationPage extends BasePage{
 
     private final By lk_issuanceSolCertificate=By.xpath("//*[contains(text(),'Solvency')]");
 
-
+    private final By lk_issuanceGuaCertificate=By.xpath("//*[contains(text(),'Guardianship')]");
     public CoreApplicationPage enter_username(String username) throws Exception
     {
         sendkeys(textbox_username, username, WaitStrategy.PRESENCE);
@@ -169,6 +170,11 @@ public class CoreApplicationPage extends BasePage{
         return new SolvencyPage();
     }
 
+    public WebElement click_guaCertificate()
+    {
+        return getWebElement(lk_guaCert);
+
+    }
 
 
     public WebElement getassetCertificate()
@@ -228,4 +234,11 @@ public class CoreApplicationPage extends BasePage{
         click(lk_issuanceSolCertificate, WaitStrategy.CLICKABLE);
         return this;
     }
+
+    public CoreApplicationPage click_guaapplications()
+    {
+        click(lk_issuanceGuaCertificate, WaitStrategy.CLICKABLE);
+        return this;
+    }
+
 }
