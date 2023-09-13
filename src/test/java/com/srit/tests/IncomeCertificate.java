@@ -21,44 +21,31 @@ String Incomeno=null;
 {
     try
     {
+
         CoreApplicationPage cp=new CoreApplicationPage();
+        cp.click_citizenlogin();
+        cp.txt_email("sunnyxmail@gmail.com");
+        cp.txt_password("Sunil@123");
+        cp.click_sigin();
+        cp.click_applyforServices();
+        cp.click_viewallavailableServices();
+
+    /*    CoreApplicationPage cp=new CoreApplicationPage();
         cp.enter_username("csc1.sundar").enter_password("Pass@1231").clickLogin().clickCoreApplication()
                 .clickServices().clickSubmitApplication().txt_createuai1("4462")
-                .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();
+                .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();*/
 
         IncomePage in=cp.click_incomeCertifcate();
         in.click_Proceed();
         System.out.println(in.getDocumentTitle());
-        try
-        {
-            JavascriptExecutor js= (JavascriptExecutor) DriverManager.getDriver();
-            js.executeScript("window.scrollBy(0,300)", "");
-            DropDownUtils.dropdownSelect(in.districtdropdown());
+        JavascriptExecutor js= (JavascriptExecutor) DriverManager.getDriver();
+        js.executeScript("window.scrollBy(0,300)", "");
 
-            DropDownUtils.dropdownList(in.districtdropdownlist(), "bargarh");
-            Thread.sleep(4000);
-
-            DropDownUtils.dropdownSelect(in.subdivisiondropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(in.subdivisiondropdownlist(), "bargarh");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(in.tahsildropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(in.tahsildropdownlist(), "bargarh");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(in.ridropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(in.ridropdownlist(), "jamurda");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(in.villagedropdown());
-            Thread.sleep(6000);
-            DropDownUtils.dropdownList(in.villagedropdownlist(),"jamu");
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Dropdown is not selected");
-        }
+        DropDownUtils.selectByText(in.districtdropdown(), "Bargarh");
+        DropDownUtils.selectByText(in.subdivisiondropdown(), "Bargarh");
+        DropDownUtils.selectByText(in.tahsildropdown(), "Bargarh");
+        DropDownUtils.selectByText(in.ridropdown(), "Jamurda");
+        DropDownUtils.selectByText(in.villagedropdown(), "jamu");
         in.txt_policestation("some station");
         in.txt_agriculture("50");
         in.txt_salary("50");
@@ -71,19 +58,19 @@ String Incomeno=null;
         in.txt_place("place");
         in.clicksubmit();
         HandlePop.getHandlePop();
+        Thread.sleep(1000);
         in.click_Yes();
         String text=in.getApplicationNo();
         System.out.println(text);
-        Assert.assertEquals("Application Number", text.substring(0,18));
+        Assert.assertEquals("Application No", text.substring(0,14));
         Incomeno=in.getIncomeCertNo();
         System.out.println(Incomeno);
         in.clickConfirm();
         HandlePop.getHandlePop();
+        Thread.sleep(1000);
         in.clickContinue();
-        HandlePop.getHandlePop();
-        in.clickNext();
-        in.clickUser();
-        in.clickLogout();
+        in.clickCitizenUser();
+        in.clickCitizenlogout();
 
     } catch (Exception e) {
         throw new RuntimeException(e);

@@ -6,93 +6,93 @@ import org.openqa.selenium.WebElement;
 
 public class GuardianshipPage extends BasePage{
 
-    private final By btn_proceed=By.xpath("//span[normalize-space()='Proceed']");
+    private final By btn_proceed=By.linkText("Proceed");
 
-    private final By document_Required=By.xpath("//h5[normalize-space()='Documents Required']");
+    private final By document_Required=By.xpath("//h2[normalize-space()='Documents Required']");
 
-    private final By district_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='districtPresent']");
+    private final By district_dpd=By.id("pdistrict");
 
     private final By lst_district_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By subdivision_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='subdivisionsPresent']");
+    private final By subdivision_dpd=By.id("psubdivision");
 
     private final By lst_subdivision_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By tahsil_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tahsilPresent']");
+    private final By tahsil_dpd=By.id("ptahsil");
 
     private final By lst_tahsil_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ri_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='riPresent']");
+    private final By ri_dpd=By.id("pri");
 
     private final By lst_ri_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By village_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='villagePresent']");
+    private final By village_dpd=By.id("pvillage");
 
     private  final By lst_village_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By legal_prefix_dpd=By.xpath("//*[@ng-reflect-name='legalGuardianPrefix']");
+    private final By legal_prefix_dpd=By.id("guardianPrefix");
 
     private final By lst_prefix_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By legal_firstname=By.xpath("//*[@ng-reflect-name='legalGuardianFirstName']");
+    private final By legal_firstname=By.id("guardianFirstName");
 
-    private final By legal_lastname=By.xpath("//*[@ng-reflect-name='legalGuardianLastName']");
+    private final By legal_lastname=By.id("guardianLastName");
 
-    private final By legal_age=By.xpath("//*[@ng-reflect-name='legalGuardianAge']");
+    private final By legal_age=By.id("guardianAge");
 
-    private final  By legal_father_firstname=By.xpath("//*[@ng-reflect-name='legalGuardianFatherFirstName']");
+    private final  By legal_father_firstname=By.id("guardianFatherFirstName");
 
-    private final By legal_father_lastname=By.xpath("//*[@ng-reflect-name='legalGuardianFatherLastName']");
+    private final By legal_father_lastname=By.id("guardianFatherLastName");
 
-    private final By legal_district_dpd=By.xpath("//*[@ng-reflect-name='legalGuardianDistrict']");
+    private final By legal_district_dpd=By.id("guardianDistrict");
 
-    private  final By lst_legal_district_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
+    private  final By lst_legal_district_dpd=By.id("//*[@class='mdc-list-item__primary-text']");
 
-    private final By legal_subdivision_dpd=By.xpath("//*[@ng-reflect-name='legalGuardianSubdivisions']");
+    private final By legal_subdivision_dpd=By.id("guardianSubdivision");
 
     private  final By lst_legal_subdivision_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
 
-    private final By legal_tahsil_dpd=By.xpath("//*[@ng-reflect-name='legalGuardianTahsil']");
+    private final By legal_tahsil_dpd=By.id("guardianTahsil");
 
     private  final By lst_legal_tahsil_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By legal_ri_dpd=By.xpath("//*[@ng-reflect-name='legalGuardianRi']");
+    private final By legal_ri_dpd=By.id("guardianRi");
 
     private  final By lst_legal_ri_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By legal_village_dpd=By.xpath("//*[@ng-reflect-name='legalGuardianVillage']");
+    private final By legal_village_dpd=By.id("guardianVillage");
 
     private  final By lst_legal_village_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_legal_policestation=By.xpath("//*[@ng-reflect-name='legalGuardianPoliceStation']");
+    private final By txt_legal_policestation=By.id("guardianPolicestation");
 
 
-    private final By legal_relation_dpd=By.xpath("//*[@ng-reflect-name='legalGuardianRelation']");
+    private final By legal_relation_dpd=By.id("guardianRelationship");
 
     private  final By lst_legal_relation_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
-    private final By txt_policestation=By.xpath("//*[@ng-reflect-name='policeStationPresent']");
+    private final By txt_policestation=By.id("ppoliceStation");
 
-    private final By btn_applicant_photo=By.xpath("//*[@ng-reflect-name='uploadPhoto']");
+    private final By btn_applicant_photo=By.id("photograph");
 
-    private final By txt_purpose=By.xpath("//*[@ng-reflect-name='purpose']");
+    private final By txt_purpose=By.id("purpose");
 
-    private final By chk_agree=By.xpath("//*[@ng-reflect-name='iAgree']//*[contains(@id, 'mat-mdc-checkbox')]");
+    private final By chk_agree=By.id("agree");
 
-    private final By txt_place=By.xpath("//*[@ng-reflect-name='declarationPlace']");
+    private final By txt_place=By.id("place");
 
-    private final By btn_submit=By.xpath("//*[@class='mdc-button__label' and text()='Submit']");
+    private final By btn_submit=By.id("submitDetails");
 
-    private final By btn_submit_yes=By.xpath("//*[@class='mdc-button__label' and text()='Yes']");
+    private final By btn_submit_yes=By.xpath("//*[@class='btn btn-success']");
 
-    private final By txt_applicationno=By.xpath("//*[text()=' Application Number : ']");
+    private final By txt_applicationno=By.xpath("//*[@class='col-sm-3 heading-title' and contains(text(),'Application No. :')]");
 
     private final By txt_confirm=By.xpath("//mat-dialog-content//p[contains(text(),'Application')]");
-    private final By btn_Confirm=By.xpath("//*[@class='mdc-button__label' and text()='Confirm']");
+    private final By btn_Confirm=By.id("confirmBtnSubmit");
 
-    private final By guardianApplicationno=By.xpath("//mat-label[contains(text(),'E-GRD')]");
+    private final By guardianApplicationno=By.xpath("//*[@class='col-sm-3' and contains(text(),'E-GRD')]");
 
-    private final By btn_continue=By.xpath("//*[@class='mdc-button__label' and text()='Continue']");
+    private final By btn_continue=By.xpath("//*[@class='btn btn-success']");
 
     private final By btn_next=By.xpath("//*[@class='mdc-button__label' and text()='Next']");
 
@@ -100,9 +100,24 @@ public class GuardianshipPage extends BasePage{
 
     private final By lk_logout=By.xpath("//*[@ng-reflect-name='log-out']");
 
+    private final By lk_user_citizen=By.id("dropdownClick");
+
+    private final By lk_citizen_logout=By.xpath("//*[@class='icon']//img[contains(@src,'logout')]");
+
+
     public void click_Proceed()
     {
         click(btn_proceed, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickCitizenUser()
+    {
+        click(lk_user_citizen, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickCitizenlogout()
+    {
+        click(lk_citizen_logout, WaitStrategy.CLICKABLE);
     }
 
     public String getDocumentTitle()

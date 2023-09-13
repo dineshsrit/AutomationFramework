@@ -22,76 +22,47 @@ public class TribeCertificate extends BaseTest{
         try
         {
             CoreApplicationPage cp=new CoreApplicationPage();
+            cp.click_citizenlogin();
+            cp.txt_email("sunnyxmail@gmail.com");
+            cp.txt_password("Sunil@123");
+            cp.click_sigin();
+            cp.click_applyforServices();
+            cp.click_viewallavailableServices();
+           /* CoreApplicationPage cp=new CoreApplicationPage();
             cp.enter_username("csc1.sundar").enter_password("Pass@1231").clickLogin().clickCoreApplication()
                     .clickServices().clickSubmitApplication().txt_createuai1("4462")
-                    .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();
+                    .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();*/
            TribePage tp= cp.click_tribeCertificate();
            tp.click_Proceed();
            System.out.println(tp.getDocumentTitle());
-            try
-            {
-                JavascriptExecutor js= (JavascriptExecutor) DriverManager.getDriver();
-                js.executeScript("window.scrollBy(0,300)", "");
-                DropDownUtils.dropdownSelect(tp.districtdropdown());
 
-                DropDownUtils.dropdownList(tp.districtdropdownlist(), "bargarh");
-                Thread.sleep(4000);
-
-                DropDownUtils.dropdownSelect(tp.subdivisiondropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(tp.subdivisiondropdownlist(), "bargarh");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(tp.tahsildropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(tp.tahsildropdownlist(), "bargarh");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(tp.ridropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(tp.ridropdownlist(), "jamurda");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(tp.villagedropdown());
-                Thread.sleep(6000);
-                DropDownUtils.dropdownList(tp.villagedropdownlist(),"jamu");
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(tp.castedropdown());
-                Thread.sleep(6000);
-                DropDownUtils.dropdownList(tp.castedropdownlist(), "jadu savar");
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(tp.religiondropdown());
-                Thread.sleep(6000);
-                DropDownUtils.dropdownList(tp.religiondropdownlist(), "hindu");
-
-            } catch (InterruptedException e)
-            {
-                throw new RuntimeException("Dropdown is not selected");
-
-            }
-
+            DropDownUtils.selectByText(tp.districtdropdown(), "Bargarh");
+            DropDownUtils.selectByText(tp.subdivisiondropdown(), "Bargarh");
+            DropDownUtils.selectByText(tp.tahsildropdown(), "Bargarh");
+            DropDownUtils.selectByText(tp.ridropdown(), "Jamurda");
+            DropDownUtils.selectByText(tp.villagedropdown(),"jamu");
+            DropDownUtils.selectByText(tp.castedropdown(), "Santal");
+            DropDownUtils.selectByText(tp.religiondropdown(), "Hindu");
             tp.txt_policestation("police station");
             FileUploadUtils.fileUpload(tp.fileUpload(), FrameworkConstants.getUploadfilepath());
             tp.txt_purpose("some purpose");
-            Thread.sleep(2000);
             DropDownUtils.dropdownSelect(tp.agree());
             tp.txt_place("place");
-            Thread.sleep(1000);
             tp.clicksubmit();
             HandlePop.getHandlePop();
+            Thread.sleep(1000);
             tp.click_Yes();
             String text=tp.getApplicationNo();
             System.out.println(text);
-            Assert.assertEquals("Application Number", text.substring(0,18));
+            Assert.assertEquals("Application No", text.substring(0,14));
             tribe=tp.getTribeCertNo();
             System.out.println(tribe);
             tp.clickConfirm();
             HandlePop.getHandlePop();
+            Thread.sleep(1000);
             tp.clickContinue();
-            HandlePop.getHandlePop();
-            tp.clickNext();
-            tp.clickUser();
-            tp.clickLogout();
+            tp.clickCitizenUser();
+            tp.clickCitizenlogout();
 
 
         } catch (Exception e) {

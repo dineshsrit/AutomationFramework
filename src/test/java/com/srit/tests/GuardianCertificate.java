@@ -20,105 +20,62 @@ public class GuardianCertificate extends BaseTest{
 
     @Test
     public void applyforGuardianservice() throws Exception {
+
         CoreApplicationPage cp=new CoreApplicationPage();
+        cp.click_citizenlogin();
+        cp.txt_email("sunnyxmail@gmail.com");
+        cp.txt_password("Sunil@123");
+        cp.click_sigin();
+        cp.click_applyforServices();
+        cp.click_viewallavailableServices();
+       /* CoreApplicationPage cp=new CoreApplicationPage();
         cp.enter_username("csc1.sundar").enter_password("Pass@1231").clickLogin().clickCoreApplication()
                 .clickServices().clickSubmitApplication().txt_createuai1("4462")
                 .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();
-        Thread.sleep(1000);
+        Thread.sleep(1000);*/
         DropDownUtils.dropdownSelect(cp.click_guaCertificate());
         GuardianshipPage gp= new GuardianshipPage();
         gp.click_Proceed();
         System.out.println(gp.getDocumentTitle());
-        try
-        {
-            JavascriptExecutor js= (JavascriptExecutor) DriverManager.getDriver();
-            js.executeScript("window.scrollBy(0,300)", "");
-            DropDownUtils.dropdownSelect(gp.districtdropdown());
 
-            DropDownUtils.dropdownList(gp.districtdropdownlist(), "bargarh");
-            Thread.sleep(4000);
-
-            DropDownUtils.dropdownSelect(gp.subdivisiondropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.subdivisiondropdownlist(), "bargarh");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.tahsildropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.tahsildropdownlist(), "bargarh");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.ridropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.ridropdownlist(), "jamurda");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.villagedropdown());
-            Thread.sleep(6000);
-            DropDownUtils.dropdownList(gp.villagedropdownlist(),"jamu");
-            gp.txt_policestation("police station");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.legal_prefixdropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.legal_prefixdropdownlist(),"shri");
-            gp.txt_legal_firstname("rakesh");
-            gp.txt_legal_lastname("r");
-            gp.txt_legal_age("25");
-            gp.txt_legal_father_firstname("father");
-            gp.txt_legal_father_lastname("fa");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.legal_districtdropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.legal_districtdropdownlist(),"bargarh");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.legal_subdivisiondropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.legal_subdivisiondropdownlist(),"bargarh");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.legal_tahsildropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.legal_tahsildropdownlist(),"bargarh");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.legal_ri_dropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.legal_ridropdownlist(),"jamurda");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.legal_village_dropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.legal_villagedropdownlist(),"jamu");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(gp.legal_relation_dropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(gp.legal_relationdropdownlist(),"aunt");
-            gp.txt_legal_policestation("police station");
-
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException("Dropdown is not selected");
-
-        }
-
+        DropDownUtils.selectByText(gp.districtdropdown(), "Bargarh");
+        DropDownUtils.selectByText(gp.subdivisiondropdown(), "Bargarh");
+        DropDownUtils.selectByText(gp.tahsildropdown(), "Bargarh");
+        DropDownUtils.selectByText(gp.ridropdown(), "Jamurda");
+        DropDownUtils.selectByText(gp.villagedropdown(), "jamu");
+        gp.txt_policestation("police station");
+        DropDownUtils.selectByText(gp.legal_prefixdropdown(), "Shri");
+        gp.txt_legal_firstname("rakesh");
+        gp.txt_legal_lastname("r");
+        gp.txt_legal_age("25");
+        gp.txt_legal_father_firstname("father");
+        gp.txt_legal_father_lastname("fa");
+        DropDownUtils.selectByText(gp.legal_districtdropdown(), "Bargarh");
+        DropDownUtils.selectByText(gp.legal_subdivisiondropdown(), "Bargarh");
+        DropDownUtils.selectByText(gp.legal_tahsildropdown(), "Bargarh");
+        DropDownUtils.selectByText(gp.legal_ri_dropdown(), "Jamurda");
+        DropDownUtils.selectByText(gp.legal_village_dropdown(), "jamu");
+        DropDownUtils.selectByText(gp.legal_relation_dropdown(), "Aunt");
+        gp.txt_legal_policestation("police station");
         FileUploadUtils.fileUpload(gp.fileUpload(), FrameworkConstants.getUploadfilepath());
         gp.txt_purpose("some purpose");
-        Thread.sleep(2000);
         DropDownUtils.dropdownSelect(gp.agree());
         gp.txt_place("place");
-        Thread.sleep(1000);
         gp.clicksubmit();
         HandlePop.getHandlePop();
+        Thread.sleep(1000);
         gp.click_Yes();
         String text=gp.getApplicationNo();
         System.out.println(text);
-        Assert.assertEquals("Application Number", text.substring(0,18));
+        Assert.assertEquals("Application No", text.substring(0,14));
         guardian=gp.getGuardianCertNo();
         System.out.println(guardian);
         gp.clickConfirm();
         HandlePop.getHandlePop();
+        Thread.sleep(1000);
         gp.clickContinue();
-        HandlePop.getHandlePop();
-        gp.clickNext();
-        gp.clickUser();
-        gp.clickLogout();
+        gp.clickCitizenUser();
+        gp.clickCitizenlogout();
 
 
     }

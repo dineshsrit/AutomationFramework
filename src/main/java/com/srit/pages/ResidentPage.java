@@ -7,65 +7,70 @@ import org.openqa.selenium.WebElement;
 public class ResidentPage extends BasePage{
 
 
-    private final By btn_proceed=By.xpath("//span[normalize-space()='Proceed']");
 
-    private final By txt_years=By.xpath("//input[@ng-reflect-name='residingYear']");
+
+    private final By btn_proceed=By.linkText("Proceed");
+
+    private final By txt_years=By.id("years");
 
     private final By btn_back=By.xpath("//span[normalize-space()='Back']");
 
-    private final By document_Required=By.xpath("//h5[normalize-space()='Documents Required']");
+    private final By document_Required=By.xpath("//h2[normalize-space()='Documents Required']");
 
     private final By family_Members=By.xpath("//mat-radio-button[@id='mat-radio-23']//div[@class='mat-mdc-radio-touch-target']");
 
-    private final By district_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='districtPresent']");
+    private final By district_dpd=By.id("pdistrict");
 
     private final By lst_district_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By subdivision_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='subdivisionsPresent']");
+    private final By subdivision_dpd=By.id("psubdivision");
 
     private final By lst_subdivision_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By tahsil_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tahsilPresent']");
+    private final By tahsil_dpd=By.id("ptahsil");
 
     private final By lst_tahsil_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ri_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='riPresent']");
+    private final By ri_dpd=By.id("pri");
 
      private final By lst_ri_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By village_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='villagePresent']");
+    private final By village_dpd=By.id("pvillage");
 
     private  final By lst_village_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_policestation=By.xpath("//*[@ng-reflect-name='policeStationPresent']");
+    private final By txt_policestation=By.id("ppoliceStation");
 
-    private final By txt_months=By.xpath("//*[@ng-reflect-name='residingMonth']");
+    private final By txt_months=By.id("months");
 
-    private final By txt_purpose=By.xpath("//*[@ng-reflect-name='purpose']");
+    private final By txt_purpose=By.id("purpose");
 
-    private final By chk_agree=By.xpath("//*[@ng-reflect-name='iAgree']//*[contains(@id, 'mat-mdc-checkbox')]");
+    private final By chk_agree=By.id("agree");
 
-    private final By txt_place=By.xpath("//*[@ng-reflect-name='declarationPlace']");
+    private final By txt_place=By.id("place");
 
-    private final By btn_submit=By.xpath("//*[@class='mdc-button__label' and text()='Submit']");
+    private final By btn_submit=By.id("submitDetails");
 
 
-    private final By btn_applicant_photo=By.xpath("//*[@ng-reflect-name='uploadPhoto']");
+    private final By btn_applicant_photo=By.id("photograph");
 
-    private final By btn_submit_yes=By.xpath("//*[@class='mdc-button__label' and text()='Yes']");
+    private final By btn_submit_yes=By.xpath("//*[@class='btn btn-success']");
 
-    private final By txt_applicationno=By.xpath("//*[text()=' Application Number : ']");
+    private final By txt_applicationno=By.xpath("//*[@class='col-sm-3 heading-title' and contains(text(),'Application No. :')]");
 
-    private final By residentApplicationno=By.xpath("//*[@class='ng-tns-c136-81' and contains(text(), 'E-RES')]");
+    private final By residentApplicationno=By.xpath("//*[@class='col-sm-3' and contains(text(),'E-RES')]");
 
-    private final By btn_Confirm=By.xpath("//*[@class='mdc-button__label' and text()='Confirm']");
+    private final By btn_Confirm=By.id("confirmBtnSubmit");
 
-    private final By btn_continue=By.xpath("//*[@class='mdc-button__label' and text()='Continue']");
+    private final By btn_continue=By.xpath("//*[@class='btn btn-success']");
 
     private final By btn_next=By.xpath("//*[@class='mdc-button__label' and text()='Next']");
 
+    private final By lk_user_citizen=By.id("dropdownClick");
+
     private final By lk_user=By.xpath("//*[@alt='User']");
 
+    private final By lk_citizen_logout=By.xpath("//*[@class='icon']//img[contains(@src,'logout')]");
     private final By lk_logout=By.xpath("//*[@ng-reflect-name='log-out']");
 
     private final By lk_da_firstrecord=By.xpath("//mat-row[1]//mat-cell[2]//span");
@@ -251,15 +256,11 @@ public class ResidentPage extends BasePage{
         return getWebElement(txt_years);
     }
 
-    public WebElement districtdropdown()
+    public WebElement getdistrict()
     {
-        return getWebElement(district_dpd);
+       return getWebElement(district_dpd);
     }
-    public ResidentPage clickDistrictdropdown()
-    {
-        click(district_dpd, WaitStrategy.CLICKABLE);
-        return this;
-    }
+
 
     public By districtdropdownlist()
     {
@@ -332,7 +333,7 @@ public class ResidentPage extends BasePage{
     }
     public WebElement agree()
     {
-        return getWebElement(chk_agree);
+       return getWebElement(chk_agree);
     }
     public void clicksubmit()
     {
@@ -382,11 +383,20 @@ public class ResidentPage extends BasePage{
         click(btn_next, WaitStrategy.CLICKABLE);
     }
 
+    public void clickCitizenUser()
+    {
+        click(lk_user_citizen, WaitStrategy.CLICKABLE);
+    }
+
     public void clickUser()
     {
         click(lk_user, WaitStrategy.CLICKABLE);
     }
 
+    public void clickCitizenlogout()
+    {
+        click(lk_citizen_logout, WaitStrategy.CLICKABLE);
+    }
     public void clickLogout()
     {
         click(lk_logout, WaitStrategy.CLICKABLE);

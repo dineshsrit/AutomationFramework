@@ -7,6 +7,20 @@ import org.openqa.selenium.WebElement;
 
 public class CoreApplicationPage extends BasePage{
 
+
+    private final By lk_citizen_login=By.partialLinkText("Citizen");
+
+    private final By txt_emailadddress=By.id("_com_liferay_login_web_portlet_LoginPortlet_login");
+
+    private final By txt_password=By.id("_com_liferay_login_web_portlet_LoginPortlet_password");
+
+    private final By lk_signin=By.xpath("//*[@type='submit' and contains(@id,'_com_liferay_login_web_portlet_LoginPortlet_')]");
+
+    private final By lk_forgotpassword=By.partialLinkText("Forgot");
+    private final By lk_applyforservices=By.id("menuHeading1");
+
+    private final By lk_viewallavailableservices=By.partialLinkText("View all");
+
     private final By lk_coreapplication=By.linkText("Core application");
 
     private final By lk_services=By.linkText("Services");
@@ -27,21 +41,25 @@ public class CoreApplicationPage extends BasePage{
 
     private final By btn_submit=By.xpath("//span[normalize-space()='Submit']");
 
-    private final By clk_residentCert=By.xpath("//a[normalize-space()='Issuance of Residence Certificate']");
+    private final By clk_residentCert=By.partialLinkText("Residence Certificate");
 
-    private final By lk_incomeCert=By.xpath("//a[normalize-space()='Issuance of Income Certificate']");
+    private final By lk_incomeCert=By.partialLinkText("Income Certificate");
 
-    private final By lk_casteCert=By.xpath("//a[normalize-space()='Issuance of Schedule Caste Certificate']");
+    private final By lk_casteCert=By.partialLinkText("Schedule Caste");
 
-    private final By lk_tribeCert=By.xpath("//a[normalize-space()='Issuance of Scheduled Tribe Certificate']");
+    private final By lk_tribeCert=By.partialLinkText("Scheduled Tribe");
 
-    private final By lk_assetCert=By.xpath("//*[contains(text(),'Asset')]");
+    private final By lk_assetCert=By.partialLinkText("Asset");
 
-    private final By lk_rorCert=By.xpath("//*[contains(text(),'ROR')]");
+    private final By lk_rorCert=By.partialLinkText("ROR");
 
-    private final By lk_solCert=By.xpath("//*[contains(text(),'Solvency')]");
+    private final By lk_solCert=By.partialLinkText("Solvency");
 
-    private final By lk_guaCert=By.xpath("//*[contains(text(),'Guardianship')]");
+    private final By lk_guaCert=By.partialLinkText("Guardianship");
+
+    private final By lk_sebcCert=By.partialLinkText("SEBC");
+
+    private final By lk_obcCert=By.partialLinkText("OBC");
     private final By lk_applicationsbox=By.linkText("Applications Box");
 
     private final By lk_mypendingapplications=By.linkText("My Pending Applications");
@@ -60,6 +78,20 @@ public class CoreApplicationPage extends BasePage{
     private final By lk_issuanceSolCertificate=By.xpath("//*[contains(text(),'Solvency')]");
 
     private final By lk_issuanceGuaCertificate=By.xpath("//*[contains(text(),'Guardianship')]");
+
+    private final By lk_issuanceSebcCertificate=By.xpath("//*[contains(text(),'SEBC')]");
+
+    private final By lk_issuanceObcCertificate=By.xpath("//*[contains(text(),'OBC')]");
+
+    private final By lk_officiallogin=By.linkText("Official Login");
+
+
+    public CoreApplicationPage click_OfficialLogin()
+    {
+        click(lk_officiallogin, WaitStrategy.CLICKABLE);
+        return this;
+    }
+
     public CoreApplicationPage enter_username(String username) throws Exception
     {
         sendkeys(textbox_username, username, WaitStrategy.PRESENCE);
@@ -176,10 +208,22 @@ public class CoreApplicationPage extends BasePage{
 
     }
 
-
-    public WebElement getassetCertificate()
+    public SebcPage click_sebcCertificate()
     {
-        return getWebElement(lk_assetCert);
+        click(lk_sebcCert, WaitStrategy.CLICKABLE);
+        return new SebcPage();
+    }
+
+    public ObcPage click_obcCertificate()
+    {
+        click(lk_obcCert, WaitStrategy.CLICKABLE);
+        return new ObcPage();
+    }
+
+    public IncomeAssetPage getassetCertificate()
+    {
+        click(lk_assetCert, WaitStrategy.CLICKABLE);
+        return new IncomeAssetPage();
     }
     public CoreApplicationPage click_applicationbox()
     {
@@ -238,6 +282,52 @@ public class CoreApplicationPage extends BasePage{
     public CoreApplicationPage click_guaapplications()
     {
         click(lk_issuanceGuaCertificate, WaitStrategy.CLICKABLE);
+        return this;
+    }
+
+
+    public CoreApplicationPage click_sebcapplications()
+    {
+        click(lk_issuanceSebcCertificate, WaitStrategy.CLICKABLE);
+        return this;
+    }
+
+    public CoreApplicationPage click_obcapplications()
+    {
+        click(lk_issuanceObcCertificate, WaitStrategy.CLICKABLE);
+        return this;
+    }
+
+    public CoreApplicationPage click_citizenlogin()
+    {
+        click(lk_citizen_login, WaitStrategy.CLICKABLE);
+        return this;
+    }
+
+    public CoreApplicationPage txt_email(String value)
+    {
+        sendkeys(txt_emailadddress, value, WaitStrategy.PRESENCE);
+        return this;
+    }
+    public CoreApplicationPage txt_password(String value)
+    {
+        sendkeys(txt_password, value, WaitStrategy.PRESENCE);
+        return this;
+    }
+    public CoreApplicationPage click_sigin()
+    {
+        click(lk_signin, WaitStrategy.CLICKABLE);
+        return this;
+    }
+
+    public CoreApplicationPage click_applyforServices()
+    {
+        click(lk_applyforservices, WaitStrategy.CLICKABLE);
+        return this;
+    }
+    public CoreApplicationPage click_viewallavailableServices()
+    {
+        click(lk_viewallavailableservices, WaitStrategy.CLICKABLE);
         return this;
     }
 

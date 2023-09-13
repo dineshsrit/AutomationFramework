@@ -22,72 +22,42 @@ String incomeasset=null;
         try{
 
             CoreApplicationPage cp=new CoreApplicationPage();
+            cp.click_citizenlogin();
+            cp.txt_email("sunnyxmail@gmail.com");
+            cp.txt_password("Sunil@123");
+            cp.click_sigin();
+            cp.click_applyforServices();
+            cp.click_viewallavailableServices();
+
+           /* CoreApplicationPage cp=new CoreApplicationPage();
             cp.enter_username("csc1.sundar").enter_password("Pass@1231").clickLogin().clickCoreApplication()
                     .clickServices().clickSubmitApplication().txt_createuai1("4462")
                     .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();
             JavascriptExecutor js=  (JavascriptExecutor) DriverManager.getDriver();
             js.executeScript("window.scrollBy(0,500)","");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(cp.getassetCertificate());
-            IncomeAssetPage ia= new IncomeAssetPage();
+            Thread.sleep(1000);*/
+            IncomeAssetPage ia=  cp.getassetCertificate();
             ia.click_Proceed();
             System.out.println(ia.getDocumentTitle());
 
             try
             {
-                DropDownUtils.dropdownSelect(ia.categorydropdown());
-                Thread.sleep(2000);
-                DropDownUtils.dropdownList(ia.categorydropdownlist(), "state");
-                DropDownUtils.dropdownSelect(ia.siblingdropdown());
-                Thread.sleep(2000);
-                DropDownUtils.dropdownList(ia.siblingdropdownlist(), "yes");
-                Thread.sleep(1000);
+                DropDownUtils.selectByText(ia.categorydropdown(), "State");
+                DropDownUtils.dropdownSelect(ia.clicksibling());
                 ia.txt_sibling_name("rakesh");
                 ia.txt_sibling_age("16");
-                DropDownUtils.dropdownSelect(ia.siblinggenderdropdown());
-                Thread.sleep(1000);
-                DropDownUtils.dropdownList(ia.siblinggenderdropdownlist(), "male");
-                DropDownUtils.dropdownSelect(ia.siblingrelationdropdown());
-                Thread.sleep(1000);
-                DropDownUtils.dropdownList(ia.siblingrelationdropdownlist(), "brother");
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(ia.childrendropdown());
-                DropDownUtils.dropdownList(ia.childrendropdownlist(), "yes");
-                Thread.sleep(1000);
+                DropDownUtils.selectByText(ia.siblinggenderdropdown(), "Male");
+                DropDownUtils.selectByText(ia.siblingrelationdropdown(), "Brother");
+                DropDownUtils.dropdownSelect(ia.clickchildren());
                 ia.txt_children_name("some");
                 ia.txt_children_age("12");
-                DropDownUtils.dropdownSelect(ia.childrengenderdropdown());
-                Thread.sleep(1000);
-                DropDownUtils.dropdownList(ia.childrengenderdropdownlist(), "male");
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(ia.childrenrelationdropdown());
-                Thread.sleep(1000);
-                DropDownUtils.dropdownList(ia.childrenrelationdropdownlist(), "son");
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(ia.districtdropdown());
-
-                DropDownUtils.dropdownList(ia.districtdropdownlist(), "bargarh");
-                Thread.sleep(4000);
-
-                DropDownUtils.dropdownSelect(ia.subdivisiondropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(ia.subdivisiondropdownlist(), "bargarh");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(ia.tahsildropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(ia.tahsildropdownlist(), "bargarh");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(ia.ridropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(ia.ridropdownlist(), "jamurda");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(ia.villagedropdown());
-                Thread.sleep(6000);
-                DropDownUtils.dropdownList(ia.villagedropdownlist(),"jamu");
-
+                DropDownUtils.selectByText(ia.childrengenderdropdown(), "Male");
+                DropDownUtils.selectByText(ia.childrenrelationdropdown(), "Son");
+                DropDownUtils.selectByText(ia.districtdropdown(), "Bargarh");
+                DropDownUtils.selectByText(ia.subdivisiondropdown(), "Bargarh");
+                DropDownUtils.selectByText(ia.tahsildropdown(), "Bargarh");
+                DropDownUtils.selectByText(ia.ridropdown(), "Jamurda");
+                DropDownUtils.selectByText(ia.villagedropdown(), "jamu");
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -98,39 +68,29 @@ String incomeasset=null;
             ia.txt_business("1000");
             ia.txt_agriculture("100");
             ia.txt_profession("100");
-            Thread.sleep(2000);
-           /* DropDownUtils.dropdownSelect(ia.clickothersources());
-            ia.txt_pleasespecify("100");
-            ia.txt_incomefromothersource("100");*/
-            DropDownUtils.dropdownSelect(ia.assetdropdown());
-            Thread.sleep(1000);
-            DropDownUtils.dropdownList(ia.assetdropdownlist(), "Agricultural land");
+            DropDownUtils.selectByText(ia.assetdropdown(), "Agricultural Land");
             ia.txt_assert_area("100");
-            DropDownUtils.dropdownSelect(ia.unitdropdown());
-            Thread.sleep(1000);
-            DropDownUtils.dropdownList(ia.unitdropdownlist(), "in acre");
+            DropDownUtils.selectByText(ia.unitdropdown(), "in Acre");
             ia.txt_assert_location("testing");
             FileUploadUtils.fileUpload(ia.fileUpload(), FrameworkConstants.getUploadfilepath());
             ia.txt_purpose("some purpose");
-            Thread.sleep(2000);
             DropDownUtils.dropdownSelect(ia.agree());
             ia.txt_place("place");
-            Thread.sleep(1000);
             ia.clicksubmit();
             HandlePop.getHandlePop();
+            Thread.sleep(1000);
             ia.click_Yes();
             String text=ia.getApplicationNo();
             System.out.println(text);
-            Assert.assertEquals("Application Number", text.substring(0,18));
+            Assert.assertEquals("Application No", text.substring(0,14));
             incomeasset=ia.getincomeassetCertNo();
             System.out.println(incomeasset);
             ia.clickConfirm();
             HandlePop.getHandlePop();
+            Thread.sleep(1000);
             ia.clickContinue();
-            HandlePop.getHandlePop();
-            ia.clickNext();
-            ia.clickUser();
-            ia.clickLogout();
+            ia.clickCitizenUser();
+            ia.clickCitizenlogout();
 
         } catch (Exception e) {
             throw new RuntimeException(e);

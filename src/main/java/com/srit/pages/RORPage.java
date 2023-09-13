@@ -6,87 +6,102 @@ import org.openqa.selenium.WebElement;
 
 public class RORPage extends BasePage{
 
-    private final By btn_proceed=By.xpath("//span[normalize-space()='Proceed']");
+    private final By btn_proceed=By.linkText("Proceed");
 
-    private final By document_Required=By.xpath("//h5[normalize-space()='Documents Required']");
+    private final By document_Required=By.xpath("//h2[normalize-space()='Documents Required']");
 
-    private final By district_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='districtPresent']");
+    private final By district_dpd=By.id("pdistrict");
 
     private final By lst_district_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By subdivision_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='subdivisionsPresent']");
+    private final By subdivision_dpd=By.id("psubdivision");
 
     private final By lst_subdivision_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By tahsil_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tahsilPresent']");
+    private final By tahsil_dpd=By.id("ptahsil");
 
     private final By lst_tahsil_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ri_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='riPresent']");
+    private final By ri_dpd=By.id("pri");
 
     private final By lst_ri_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By village_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='villagePresent']");
+    private final By village_dpd=By.id("pvillage");
 
     private  final By lst_village_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_policestation=By.xpath("//*[@ng-reflect-name='policeStationPresent']");
+    private final By txt_policestation=By.id("ppoliceStation");
 
 
-    private final By ror_district_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='districtLand']");
+    private final By ror_district_dpd=By.id("rordistrict");
 
     private final By ror_lst_district_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ror_subdivision_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='subdivisionLand']");
+    private final By ror_subdivision_dpd=By.id("rorsubdivision");
 
     private final By ror_lst_subdivision_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ror_tahsil_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tahsilLand']");
+    private final By ror_tahsil_dpd=By.id("rortahsil");
 
     private final By ror_lst_tahsil_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ror_ri_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='riLand']");
+    private final By ror_ri_dpd=By.id("rorri");
 
     private final By ror_lst_ri_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ror_village_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='mouza']");
+    private final By ror_village_dpd=By.id("rorvillage");
 
     private  final By ror_lst_village_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ror_txt_policestation=By.xpath("//*[@ng-reflect-name='policeStationLand']");
+    private final By ror_txt_policestation=By.id("rorpoliceStation");
 
-    private final By ror_txt_khatano=By.xpath("//*[@ng-reflect-name='khataNo']");
+    private final By ror_txt_khatano=By.id("rorkhataNo");
 
-    private final By txt_plot_no=By.xpath("//*[@class='mat-mdc-form-field-infix ng-tns-c37-91']//input");
+    private final By txt_plot_no=By.id("plotNo");
 
-    private final By txt_castetribe=By.xpath("//*[@ng-reflect-name='casteAndTribe']");
+    private final By txt_castetribe=By.id("casteOrTribe");
 
-    private final By btn_applicant_photo=By.xpath("//*[@ng-reflect-name='uploadPhoto']");
+    private final By btn_applicant_photo=By.id("photograph");
 
-    private final By txt_purpose=By.xpath("//*[@ng-reflect-name='purpose']");
+    private final By txt_purpose=By.id("purpose");
 
-    private final By chk_agree=By.xpath("//*[@ng-reflect-name='iAgree']//*[contains(@id, 'mat-mdc-checkbox')]");
+    private final By chk_agree=By.id("agree");
 
-    private final By txt_place=By.xpath("//*[@ng-reflect-name='declarationPlace']");
+    private final By txt_place=By.id("place");
 
-    private final By btn_submit=By.xpath("//*[@class='mdc-button__label' and text()='Submit']");
+    private final By btn_submit=By.id("submitDetails");
 
-    private final By btn_submit_yes=By.xpath("//*[@class='mdc-button__label' and text()='Yes']");
+    private final By btn_submit_yes=By.xpath("//*[@class='btn btn-success']");
 
-    private final By txt_applicationno=By.xpath("//*[text()=' Application Number : ']");
+    private final By txt_applicationno=By.xpath("//*[@class='col-sm-3 heading-title' and contains(text(),'Application No. :')]");
 
     private final By txt_confirm=By.xpath("//mat-dialog-content//p[contains(text(),'Application')]");
-    private final By btn_Confirm=By.xpath("//*[@class='mdc-button__label' and text()='Confirm']");
+    private final By btn_Confirm=By.id("confirmBtnSubmit");
 
-    private final By rorApplicationno=By.xpath("//mat-label[contains(text(),'E-CCP')]");
+    private final By rorApplicationno=By.xpath("//*[@class='col-sm-3' and contains(text(),'E-CCP')]");
 
-    private final By btn_continue=By.xpath("//*[@class='mdc-button__label' and text()='Continue']");
+    private final By btn_continue=By.xpath("//*[@class='btn btn-success']");
 
     private final By btn_next=By.xpath("//*[@class='mdc-button__label' and text()='Next']");
+
+
+    private final By lk_user_citizen=By.id("dropdownClick");
+
+    private final By lk_citizen_logout=By.xpath("//*[@class='icon']//img[contains(@src,'logout')]");
 
     private final By lk_user=By.xpath("//*[@alt='User']");
 
     private final By lk_logout=By.xpath("//*[@ng-reflect-name='log-out']");
+
+    public void clickCitizenUser()
+    {
+        click(lk_user_citizen, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickCitizenlogout()
+    {
+        click(lk_citizen_logout, WaitStrategy.CLICKABLE);
+    }
 
     public void click_Proceed()
     {

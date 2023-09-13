@@ -8,97 +8,97 @@ public class IncomeAssetPage extends BasePage{
 
     /* xpath for Income and Asset Application Submission */
 
-    private final By btn_proceed=By.xpath("//span[normalize-space()='Proceed']");
+    private final By btn_proceed=By.linkText("Proceed");
 
-    private final By category_dpd=By.xpath("//*[@ng-reflect-name='categoryBox']");
+    private final By category_dpd=By.id("prefix");
 
     private  final By lst_category_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By sibling_dpd=By.xpath("//*[@ng-reflect-name='haveSibling']");
+    private final By sibling_dpd=By.id("hasSiblingsYes");
 
     private  final By lst_sibling_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By children_dpd=By.xpath("//*[@ng-reflect-name='haveChildren']");
+    private final By children_dpd=By.id("hasChildrenYes");
 
     private  final By lst_children_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_sibling_name=By.xpath("//*[@ng-reflect-name='siblingName']");
+    private final By txt_sibling_name=By.id("siblingName1");
 
-    private final By txt_sibling_age=By.xpath("//*[@ng-reflect-name='siblingAge']");
+    private final By txt_sibling_age=By.id("siblingAge");
 
-    private final By sibling_gender_dpd=By.xpath("//*[@ng-reflect-name='siblingGender']");
+    private final By sibling_gender_dpd=By.id("siblinggender1");
 
     private  final By lst_siblinggender_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
 
-    private final By sibling_relation_dpd=By.xpath("//*[@ng-reflect-name='siblingRelation']");
+    private final By sibling_relation_dpd=By.id("siblingRelation1");
 
     private  final By lst_siblingrelation_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_children_name=By.xpath("//*[@ng-reflect-name='childrenName']");
+    private final By txt_children_name=By.id("childrenName1");
 
-    private final By txt_children_age=By.xpath("//*[@ng-reflect-name='childrenAge']");
+    private final By txt_children_age=By.id("childrenAge1");
 
 
-    private final By children_gender_dpd=By.xpath("//*[@ng-reflect-name='childrenGender']");
+    private final By children_gender_dpd=By.id("childrengender1");
 
     private  final By lst_childrengender_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
 
-    private final By children_relation_dpd=By.xpath("//*[@ng-reflect-name='childrenRelation']");
+    private final By children_relation_dpd=By.id("childrenRelation1");
 
     private  final By lst_children_relation_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_salary=By.xpath("//*[@ng-reflect-name='Salary']");
+    private final By txt_salary=By.id("salary");
 
-    private final By txt_business=By.xpath("//*[@ng-reflect-name='Business']");
+    private final By txt_business=By.id("business");
 
-    private final By txt_agriculture=By.xpath("//*[@ng-reflect-name='Agriculture']");
+    private final By txt_agriculture=By.id("agriculture");
 
-    private final By txt_profession=By.xpath("//*[@ng-reflect-name='Profession']");
+    private final By txt_profession=By.id("profession");
 
-    private final By othersources_yes=By.xpath("//*[@ng-reflect-name='othersourceincomecheck']");
+    private final By othersources_yes=By.id("otherSourceOfIncome");
 
-    private final By txt_pleasespecify=By.xpath("//*[@ng-reflect-name='otherSourceSpec']");
+    private final By txt_pleasespecify=By.id("otherSourceOfIncomeSpecify");
 
-    private final By txt_incomefromothersource=By.xpath("//*[@ng-reflect-name='othersourceincome']");
+    private final By txt_incomefromothersource=By.id("otherSourceOfIncomeValue");
 
-    private final By asset_dpd=By.xpath("//*[@aria-labelledby='mat-mdc-form-field-label-126 mat-select-value-45']");
+    private final By asset_dpd=By.id("asset1");
 
     private final By lst_asset_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By unit_dpd=By.xpath("//*[@aria-labelledby='mat-mdc-form-field-label-130 mat-select-value-47']");
+    private final By unit_dpd=By.id("unit1");
 
     private final By lst_unit_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_asset_location=By.xpath("//div[@class='mat-mdc-form-field-infix ng-tns-c37-92']//input");
+    private final By txt_asset_location=By.id("location1");
 
-    private final By txt_asset_area=By.xpath("//div[@class='mat-mdc-form-field-infix ng-tns-c37-89']//input");
+    private final By txt_asset_area=By.id("area1");
 
 
-    private final By document_Required=By.xpath("//h5[normalize-space()='Documents Required']");
+    private final By document_Required=By.xpath("//h2[normalize-space()='Documents Required']");
 
-    private final By district_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='districtPresent']");
+    private final By district_dpd=By.id("pdistrict");
 
     private final By lst_district_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By subdivision_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='subdivisionsPresent']");
+    private final By subdivision_dpd=By.id("psubdivision");
 
     private final By lst_subdivision_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By tahsil_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tahsilPresent']");
+    private final By tahsil_dpd=By.id("ptahsil");
 
     private final By lst_tahsil_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ri_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='riPresent']");
+    private final By ri_dpd=By.id("pri");
 
     private final By lst_ri_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By village_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='villagePresent']");
+    private final By village_dpd=By.id("pvillage");
 
     private  final By lst_village_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_policestation=By.xpath("//*[@ng-reflect-name='policeStationPresent']");
+    private final By txt_policestation=By.id("ppoliceStation");
 
     private final By tribe_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tribeDetails']");
 
@@ -108,26 +108,26 @@ public class IncomeAssetPage extends BasePage{
 
     private final By lst_religion_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By btn_applicant_photo=By.xpath("//*[@ng-reflect-name='uploadPhoto']");
+    private final By btn_applicant_photo=By.id("photograph");
 
-    private final By txt_purpose=By.xpath("//*[@ng-reflect-name='purpose']");
+    private final By txt_purpose=By.id("purpose");
 
-    private final By chk_agree=By.xpath("//*[@ng-reflect-name='declarationAgree']//*[contains(@id, 'mat-mdc-checkbox')]");
+    private final By chk_agree=By.id("agree");
 
-    private final By txt_place=By.xpath("//*[@ng-reflect-name='declarationPlace']");
+    private final By txt_place=By.id("place");
 
-    private final By btn_submit=By.xpath("//*[@class='mdc-button__label' and text()='Submit']");
+    private final By btn_submit=By.id("submitDetails");
 
-    private final By btn_submit_yes=By.xpath("//*[@class='mdc-button__label' and text()='Yes']");
+    private final By btn_submit_yes=By.xpath("//*[@class='btn btn-success']");
 
-    private final By txt_applicationno=By.xpath("//*[text()=' Application Number : ']");
+    private final By txt_applicationno=By.xpath("//*[@class='col-sm-3 heading-title' and contains(text(),'Application No. :')]");
 
     private final By txt_confirm=By.xpath("//mat-dialog-content//p[contains(text(),'Application')]");
-    private final By btn_Confirm=By.xpath("//*[@class='mdc-button__label' and text()='Confirm']");
+    private final By btn_Confirm=By.id("confirmBtnSubmit");
 
-    private final By incomeassetApplicationno=By.xpath("//mat-label[contains(text(),'E-IAC')]");
+    private final By incomeassetApplicationno=By.xpath("//*[@class='col-sm-3' and contains(text(),'E-IAC')]");
 
-    private final By btn_continue=By.xpath("//*[@class='mdc-button__label' and text()='Continue']");
+    private final By btn_continue=By.xpath("//*[@class='btn btn-success']");
 
     private final By btn_next=By.xpath("//*[@class='mdc-button__label' and text()='Next']");
 
@@ -135,6 +135,21 @@ public class IncomeAssetPage extends BasePage{
 
     private final By lk_logout=By.xpath("//*[@ng-reflect-name='log-out']");
 
+    private final By lk_user_citizen=By.id("dropdownClick");
+
+    private final By lk_citizen_logout=By.xpath("//*[@class='icon']//img[contains(@src,'logout')]");
+
+
+    public void clickCitizenUser()
+    {
+        click(lk_user_citizen, WaitStrategy.CLICKABLE);
+    }
+
+
+    public void clickCitizenlogout()
+    {
+        click(lk_citizen_logout, WaitStrategy.CLICKABLE);
+    }
     public void click_Proceed()
     {
         click(btn_proceed, WaitStrategy.CLICKABLE);
@@ -156,7 +171,7 @@ public class IncomeAssetPage extends BasePage{
         return lst_category_dpd;
     }
 
-    public WebElement siblingdropdown()
+    public WebElement clicksibling()
     {
         return getWebElement(sibling_dpd);
     }
@@ -228,7 +243,7 @@ public class IncomeAssetPage extends BasePage{
         return getWebElement(district_dpd);
     }
 
-    public WebElement childrendropdown()
+    public WebElement clickchildren()
     {
         return getWebElement(children_dpd);
     }

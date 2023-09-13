@@ -21,76 +21,49 @@ public class CasteCertificate extends  BaseTest{
 {
     try
     {
+
         CoreApplicationPage cp=new CoreApplicationPage();
+        cp.click_citizenlogin();
+        cp.txt_email("sunnyxmail@gmail.com");
+        cp.txt_password("Sunil@123");
+        cp.click_sigin();
+        cp.click_applyforServices();
+        cp.click_viewallavailableServices();
+       /* CoreApplicationPage cp=new CoreApplicationPage();
         cp.enter_username("csc1.sundar").enter_password("Pass@1231").clickLogin().clickCoreApplication()
                 .clickServices().clickSubmitApplication().txt_createuai1("4462")
-                .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();
+                .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();*/
 
         CastePage sc= cp.click_casteCertifcate();
         sc.click_Proceed();
         System.out.println(sc.getDocumentTitle());
-        try
-        {
-            JavascriptExecutor js= (JavascriptExecutor) DriverManager.getDriver();
-            js.executeScript("window.scrollBy(0,300)", "");
-            DropDownUtils.dropdownSelect(sc.districtdropdown());
-
-            DropDownUtils.dropdownList(sc.districtdropdownlist(), "bargarh");
-            Thread.sleep(4000);
-
-            DropDownUtils.dropdownSelect(sc.subdivisiondropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(sc.subdivisiondropdownlist(), "bargarh");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(sc.tahsildropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(sc.tahsildropdownlist(), "bargarh");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(sc.ridropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(sc.ridropdownlist(), "jamurda");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(sc.villagedropdown());
-            Thread.sleep(6000);
-            DropDownUtils.dropdownList(sc.villagedropdownlist(),"jamu");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(sc.castedropdown());
-            Thread.sleep(6000);
-            DropDownUtils.dropdownList(sc.castedropdownlist(), "asur");
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(sc.religiondropdown());
-            Thread.sleep(6000);
-            DropDownUtils.dropdownList(sc.religiondropdownlist(), "hindu");
-
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException("Dropdown is not selected");
-
-        }
+        DropDownUtils.selectByText(sc.districtdropdown(), "Bargarh");
+        DropDownUtils.selectByText(sc.subdivisiondropdown(), "Bargarh");
+        DropDownUtils.selectByText(sc.tahsildropdown(), "Bargarh");
+        DropDownUtils.selectByText(sc.ridropdown(), "Jamurda");
+        DropDownUtils.selectByText(sc.villagedropdown(), "jamu");
+        DropDownUtils.selectByText(sc.castedropdown(),"Gandia");
+        DropDownUtils.selectByText(sc.religiondropdown(), "Hindu");
         sc.txt_policestation("police station");
         FileUploadUtils.fileUpload(sc.fileUpload(), FrameworkConstants.getUploadfilepath());
         sc.txt_purpose("some purpose");
-        Thread.sleep(2000);
         DropDownUtils.dropdownSelect(sc.agree());
         sc.txt_place("place");
         sc.clicksubmit();
         HandlePop.getHandlePop();
+        Thread.sleep(1000);
         sc.click_Yes();
         String text=sc.getApplicationNo();
         System.out.println(text);
-        Assert.assertEquals("Application Number", text.substring(0,18));
+        Assert.assertEquals("Application No", text.substring(0,14));
         caste=sc.getCasteCertNo();
         System.out.println(caste);
         sc.clickConfirm();
         HandlePop.getHandlePop();
+        Thread.sleep(1000);
         sc.clickContinue();
-        HandlePop.getHandlePop();
-        sc.clickNext();
-        sc.clickUser();
-        sc.clickLogout();
+        sc.clickCitizenUser();
+        sc.clickCitizenlogout();
 
 
 

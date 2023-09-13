@@ -6,76 +6,96 @@ import org.openqa.selenium.WebElement;
 
 public class SolvencyPage  extends BasePage{
 
-    private final By btn_proceed=By.xpath("//span[normalize-space()='Proceed']");
+    private final By btn_proceed=By.linkText("Proceed");
 
-    private final By document_Required=By.xpath("//h5[normalize-space()='Documents Required']");
+    private final By document_Required=By.xpath("//h2[normalize-space()='Documents Required']");
 
-    private final By district_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='districtPresent']");
+    private final By district_dpd=By.id("pdistrict");
 
     private final By lst_district_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By subdivision_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='subdivisionsPresent']");
+    private final By subdivision_dpd=By.id("psubdivision");
 
     private final By lst_subdivision_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By tahsil_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tahsilPresent']");
+    private final By tahsil_dpd=By.id("ptahsil");
 
     private final By lst_tahsil_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ri_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='riPresent']");
+    private final By ri_dpd=By.id("pri");
 
     private final By lst_ri_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By village_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='villagePresent']");
+    private final By village_dpd=By.id("pvillage");
 
     private  final By lst_village_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_policestation=By.xpath("//*[@ng-reflect-name='policeStationPresent']");
+    private final By txt_policestation=By.id("ppoliceStation");
+    private final By txt_solvencyamt=By.id("solvencyAmount");
 
-    private final By tribe_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tribeDetails']");
+    private final By txt_landpropertyvalue=By.id("landPropertyValue");
 
-    private final By lst_caste_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
+    private final By txt_immovableproperty=By.id("otherImmovableProperty");
 
-    private final By religion_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='religionDetails']");
+    private final By txt_immovablepropertyvalue=By.id("immovablePropertyValue");
 
-    private final By lst_religion_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
+    private final By txt_buildingpropertyvalue=By.id("buildingPropertyValue");
+    private final By btn_applicant_photo=By.id("photograph");
 
-    private final By txt_solvencyamt=By.xpath("//*[@ng-reflect-name='certificateAmount']");
+    private final By txt_purpose=By.id("purpose");
 
-    private final By txt_landpropertyvalue=By.xpath("//*[@ng-reflect-name='landPropertyValue']");
+    private final By chk_agree=By.id("agree");
 
-    private final By txt_immovableproperty=By.xpath("//*[@ng-reflect-name='immovableProperty']");
+    private final By txt_place=By.id("place");
 
-    private final By txt_immovablepropertyvalue=By.xpath("//*[@ng-reflect-name='immovablePropertyValue']");
+    private final By btn_submit=By.id("submitDetails");
 
-    private final By txt_buildingpropertyvalue=By.xpath("//*[@ng-reflect-name='buildingPropertyValue']");
-    private final By btn_applicant_photo=By.xpath("//*[@ng-reflect-name='uploadPhoto']");
+    private final By btn_advanced=By.id("details-button");
 
-    private final By txt_purpose=By.xpath("//*[@ng-reflect-name='purpose']");
+    private final By lk_proceed=By.id("proceed-link");
 
-    private final By chk_agree=By.xpath("//*[@ng-reflect-name='iAgree']//*[contains(@id, 'mat-mdc-checkbox')]");
 
-    private final By txt_place=By.xpath("//*[@ng-reflect-name='declarationPlace']");
+    private final By btn_submit_yes=By.xpath("//*[@class='btn btn-success']");
 
-    private final By btn_submit=By.xpath("//*[@class='mdc-button__label' and text()='Submit']");
-
-    private final By btn_submit_yes=By.xpath("//*[@class='mdc-button__label' and text()='Yes']");
-
-    private final By txt_applicationno=By.xpath("//*[text()=' Application Number : ']");
+    private final By txt_applicationno=By.xpath("//*[@class='col-sm-3 heading-title' and contains(text(),'Application No. :')]");
 
     private final By txt_confirm=By.xpath("//mat-dialog-content//p[contains(text(),'Application')]");
-    private final By btn_Confirm=By.xpath("//*[@class='mdc-button__label' and text()='Confirm']");
+    private final By btn_Confirm=By.id("confirmBtnSubmit");
 
-    private final By solvencyApplicationno=By.xpath("//mat-label[contains(text(),'E-SLV')]");
+    private final By solvencyApplicationno=By.xpath("//*[@class='col-sm-3' and contains(text(),'E-SLV')]");
 
-    private final By btn_continue=By.xpath("//*[@class='mdc-button__label' and text()='Continue']");
+    private final By btn_continue=By.xpath("//*[@class='btn btn-success']");
 
     private final By btn_next=By.xpath("//*[@class='mdc-button__label' and text()='Next']");
+
+    private final By lk_user_citizen=By.id("dropdownClick");
+
+    private final By lk_citizen_logout=By.xpath("//*[@class='icon']//img[contains(@src,'logout')]");
 
     private final By lk_user=By.xpath("//*[@alt='User']");
 
     private final By lk_logout=By.xpath("//*[@ng-reflect-name='log-out']");
 
+    public void clickCitizenUser()
+    {
+        click(lk_user_citizen, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickCitizenlogout()
+    {
+        click(lk_citizen_logout, WaitStrategy.CLICKABLE);
+    }
+
+
+    public void clickPaymentProceed()
+    {
+        click(lk_proceed, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickPaymentAdvance()
+    {
+        click(btn_advanced, WaitStrategy.CLICKABLE);
+    }
     public void click_Proceed()
     {
         click(btn_proceed, WaitStrategy.CLICKABLE);
@@ -133,24 +153,7 @@ public class SolvencyPage  extends BasePage{
         return lst_village_dpd;
     }
 
-    public WebElement castedropdown()
-    {
-        return getWebElement(tribe_dpd);
-    }
 
-    public By castedropdownlist()
-    {
-        return lst_caste_dpd;
-    }
-    public WebElement religiondropdown()
-    {
-        return getWebElement(religion_dpd);
-    }
-
-    public By religiondropdownlist()
-    {
-        return lst_religion_dpd;
-    }
 
     public void txt_solvencyamount(String value)
     {

@@ -6,6 +6,7 @@ import com.srit.factories.ExplicitWaitFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -36,5 +37,12 @@ public class DropDownUtils {
     {
         JavascriptExecutor js=(JavascriptExecutor)DriverManager.getDriver();
         js.executeScript("arguments[0].click();", element);
+    }
+
+    public static void selectByText(WebElement element, String value)
+    {
+
+        Select select= new Select(element);
+        select.selectByVisibleText(value);
     }
 }

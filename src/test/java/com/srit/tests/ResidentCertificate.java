@@ -6,6 +6,7 @@ import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
 import com.srit.pages.ResidentPage;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import org.testng.annotations.Test;
@@ -21,73 +22,49 @@ public class ResidentCertificate extends BaseTest {
 
         try {
             CoreApplicationPage cp=new CoreApplicationPage();
+            cp.click_citizenlogin();
+            cp.txt_email("sunnyxmail@gmail.com");
+            cp.txt_password("Sunil@123");
+            cp.click_sigin();
+            cp.click_applyforServices();
+            cp.click_viewallavailableServices();
+
+
+           /* HandleTab.getHandleTab(1);
             cp.enter_username("csc1.sundar").enter_password("Pass@1231").clickLogin().clickCoreApplication()
                     .clickServices().clickSubmitApplication().txt_createuai1("4462")
-                    .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();
+                    .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();*/
 
             ResidentPage rp= cp.click_residentCertifcate();
             HandlePop.getHandlePop();
             rp.clickProceed();
             System.out.println(rp.getDocumentTitle());
-       /* JavascriptExecutor js=(JavascriptExecutor)DriverManager.getDriver();
-        js.executeScript("arguments[0].click();",rp.districtdropdown());*/
-
-            try
-            {
-                JavascriptExecutor js= (JavascriptExecutor)DriverManager.getDriver();
-                js.executeScript("window.scrollBy(0,300)", "");
-                DropDownUtils.dropdownSelect(rp.districtdropdown());
-
-                DropDownUtils.dropdownList(rp.districtdropdownlist(), "bargarh");
-                Thread.sleep(4000);
-
-                DropDownUtils.dropdownSelect(rp.subdivisiondropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(rp.subdivisiondropdownlist(), "bargarh");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(rp.tahsildropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(rp.tahsildropdownlist(), "bargarh");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(rp.ridropdown());
-                Thread.sleep(4000);
-                DropDownUtils.dropdownList(rp.ridropdownlist(), "jamurda");
-
-                Thread.sleep(1000);
-                DropDownUtils.dropdownSelect(rp.villagedropdown());
-                Thread.sleep(6000);
-                DropDownUtils.dropdownList(rp.villagedropdownlist(),"jamu");
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Dropdown is not selected");
-            }
-
+            rp.txt_years("2");
+            rp.txt_months("2");
+            DropDownUtils.selectByText(rp.getdistrict(), "Bargarh");
+            DropDownUtils.selectByText(rp.subdivisiondropdown(), "Bargarh");
+            DropDownUtils.selectByText(rp.tahsildropdown(), "Bargarh");
+            DropDownUtils.selectByText(rp.ridropdown(), "Jamurda");
+            DropDownUtils.selectByText(rp.villagedropdown(), "jamu");
             rp.txt_policestation("some station");
             FileUploadUtils.fileUpload(rp.fileupload(), FrameworkConstants.getUploadfilepath());
-            //rp.fileupload().sendKeys(System.getProperty("user.dir")+"/src/test/resources/images/ladies.png");
-            //Scroll.scrolldown(rp.districtdropdown());
-            //rp.clickDistrictdropdown();
-            Scroll.scrolldown(rp.years());
-            rp.txt_years("2");
-            rp.txt_months("2").txt_purpose("some").txt_place("some aplace");
-            Thread.sleep(2000);
+            rp.txt_purpose("some").txt_place("some aplace");
             DropDownUtils.dropdownSelect(rp.agree());
             rp.clicksubmit();
             HandlePop.getHandlePop();
+            Thread.sleep(1000);
             rp.click_Yes();
             String text=rp.getApplicationNo();
             System.out.println(text);
-            Assert.assertEquals("Application Number", text.substring(0,18));
+            Assert.assertEquals("Application No", text.substring(0,14));
             ResidentNo=rp.getResidentNo();
             System.out.println(ResidentNo);
             rp.clickConfirm();
             HandlePop.getHandlePop();
+            Thread.sleep(1000);
             rp.clickContinue();
-            HandlePop.getHandlePop();
-            rp.clickNext();
-            rp.clickUser();
-            rp.clickLogout();
+            rp.clickCitizenUser();
+            rp.clickCitizenlogout();
         }
         catch(Exception e)
         {
@@ -133,10 +110,6 @@ public class ResidentCertificate extends BaseTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
-
-
 
     }
 

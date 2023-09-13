@@ -6,62 +6,67 @@ import org.openqa.selenium.WebElement;
 
 public class CastePage extends BasePage{
 
-    private final By btn_proceed=By.xpath("//span[normalize-space()='Proceed']");
+    private final By btn_proceed=By.linkText("Proceed");
 
-    private final By document_Required=By.xpath("//h5[normalize-space()='Documents Required']");
+    private final By document_Required=By.xpath("//h2[normalize-space()='Documents Required']");
 
-    private final By district_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='districtPresent']");
+    private final By district_dpd=By.id("pdistrict");
 
     private final By lst_district_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By subdivision_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='subdivisionsPresent']");
+    private final By subdivision_dpd=By.id("psubdivision");
 
     private final By lst_subdivision_drpdn=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By tahsil_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='tahsilPresent']");
+    private final By tahsil_dpd=By.id("ptahsil");
 
     private final By lst_tahsil_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By ri_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='riPresent']");
+    private final By ri_dpd=By.id("pri");
 
     private final By lst_ri_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By village_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='villagePresent']");
+    private final By village_dpd=By.id("pvillage");
 
     private  final By lst_village_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By txt_policestation=By.xpath("//*[@ng-reflect-name='policeStationPresent']");
+    private final By txt_policestation=By.id("ppoliceStation");
 
-    private final By caste_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='casteDetails']");
+    private final By caste_dpd=By.id("caste");
 
     private final By lst_caste_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By religion_dpd=By.xpath("//*[@role='combobox' and @formcontrolname='religionDetails']");
+    private final By religion_dpd=By.id("casteReligion");
 
     private final By lst_religion_dpd=By.xpath("//*[@class='mdc-list-item__primary-text']");
 
-    private final By btn_applicant_photo=By.xpath("//*[@ng-reflect-name='uploadPhoto']");
+    private final By btn_applicant_photo=By.id("photograph");
 
-    private final By txt_purpose=By.xpath("//*[@ng-reflect-name='purpose']");
+    private final By txt_purpose=By.id("purpose");
 
-    private final By chk_agree=By.xpath("//*[@ng-reflect-name='iAgree']//*[contains(@id, 'mat-mdc-checkbox')]");
+    private final By chk_agree=By.id("agree");
 
-    private final By txt_place=By.xpath("//*[@ng-reflect-name='declarationPlace']");
+    private final By txt_place=By.id("place");
 
-    private final By btn_submit=By.xpath("//*[@class='mdc-button__label' and text()='Submit']");
+    private final By btn_submit=By.id("submitDetails");
 
-    private final By btn_submit_yes=By.xpath("//*[@class='mdc-button__label' and text()='Yes']");
+    private final By btn_submit_yes=By.xpath("//*[@class='btn btn-success']");
 
-    private final By txt_applicationno=By.xpath("//*[text()=' Application Number : ']");
+    private final By txt_applicationno=By.xpath("//*[@class='col-sm-3 heading-title' and contains(text(),'Application No. :')]");
 
     private final By txt_confirm=By.xpath("//mat-dialog-content//p[contains(text(),'Application')]");
-    private final By btn_Confirm=By.xpath("//*[@class='mdc-button__label' and text()='Confirm']");
+    private final By btn_Confirm=By.id("confirmBtnSubmit");
 
-    private final By casteApplicationno=By.xpath("//mat-label[contains(text(),'E-SCO')]");
+    private final By casteApplicationno=By.xpath("//*[@class='col-sm-3' and contains(text(),'E-SCO')]");
 
-    private final By btn_continue=By.xpath("//*[@class='mdc-button__label' and text()='Continue']");
+    private final By btn_continue=By.xpath("//*[@class='btn btn-success']");
 
     private final By btn_next=By.xpath("//*[@class='mdc-button__label' and text()='Next']");
+
+    private final By lk_user_citizen=By.id("dropdownClick");
+
+    private final By lk_citizen_logout=By.xpath("//*[@class='icon']//img[contains(@src,'logout')]");
+
 
     private final By lk_user=By.xpath("//*[@alt='User']");
 
@@ -228,6 +233,15 @@ public class CastePage extends BasePage{
 
     private final By btn_da_close=By.xpath("//span[@class='mdc-button__label' and text()='Close']");
 
+    public void clickCitizenUser()
+    {
+        click(lk_user_citizen, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickCitizenlogout()
+    {
+        click(lk_citizen_logout, WaitStrategy.CLICKABLE);
+    }
     public void txt_da_remarks(String value)
     {
         sendkeys(txt_da_remarks, value, WaitStrategy.PRESENCE);

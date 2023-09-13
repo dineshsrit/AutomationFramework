@@ -23,75 +23,53 @@ String solvency=null;
 {
     try
     {
+
         CoreApplicationPage cp=new CoreApplicationPage();
+        cp.click_citizenlogin();
+        cp.txt_email("sunnyxmail@gmail.com");
+        cp.txt_password("Sunil@123");
+        cp.click_sigin();
+        cp.click_applyforServices();
+        cp.click_viewallavailableServices();
+        /*CoreApplicationPage cp=new CoreApplicationPage();
         cp.enter_username("csc1.sundar").enter_password("Pass@1231").clickLogin().clickCoreApplication()
                 .clickServices().clickSubmitApplication().txt_createuai1("4462")
-                .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();
+                .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();*/
         SolvencyPage so= cp.click_solCertificate();
         so.click_Proceed();
         System.out.println(so.getDocumentTitle());
-        try
-        {
-            JavascriptExecutor js= (JavascriptExecutor) DriverManager.getDriver();
-            js.executeScript("window.scrollBy(0,300)", "");
-            DropDownUtils.dropdownSelect(so.districtdropdown());
-
-            DropDownUtils.dropdownList(so.districtdropdownlist(), "bargarh");
-            Thread.sleep(4000);
-
-            DropDownUtils.dropdownSelect(so.subdivisiondropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(so.subdivisiondropdownlist(), "bargarh");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(so.tahsildropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(so.tahsildropdownlist(), "bargarh");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(so.ridropdown());
-            Thread.sleep(4000);
-            DropDownUtils.dropdownList(so.ridropdownlist(), "jamurda");
-
-            Thread.sleep(1000);
-            DropDownUtils.dropdownSelect(so.villagedropdown());
-            Thread.sleep(6000);
-            DropDownUtils.dropdownList(so.villagedropdownlist(),"jamu");
-            Thread.sleep(1000);
-
-
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException("Dropdown is not selected");
-
-        }
+        DropDownUtils.selectByText(so.districtdropdown(), "Bargarh");
+        DropDownUtils.selectByText(so.subdivisiondropdown(), "Bargarh");
+        DropDownUtils.selectByText(so.tahsildropdown(), "Bargarh");
+        DropDownUtils.selectByText(so.ridropdown(), "Jamurda");
+        DropDownUtils.selectByText(so.villagedropdown(),"jamu");
         so.txt_policestation("police station");
         so.txt_solvencyamount("1000");
         so.txt_landpropertyvalue("100");
         so.txt_builidngpropertyvalue("100");
-        so.txt_immovableproperty("some property");
+        so.txt_immovableproperty("testing");
         so.txt_immovablepropertyvalue("100");
         FileUploadUtils.fileUpload(so.fileUpload(), FrameworkConstants.getUploadfilepath());
         so.txt_purpose("some purpose");
-        Thread.sleep(2000);
         DropDownUtils.dropdownSelect(so.agree());
         so.txt_place("place");
-        Thread.sleep(1000);
         so.clicksubmit();
         HandlePop.getHandlePop();
+        Thread.sleep(1000);
         so.click_Yes();
         String text=so.getApplicationNo();
         System.out.println(text);
-        Assert.assertEquals("Application Number", text.substring(0,18));
+        Assert.assertEquals("Application No", text.substring(0,14));
         solvency=so.getSolvCertNo();
         System.out.println(solvency);
         so.clickConfirm();
-        HandlePop.getHandlePop();
+        Thread.sleep(1000);
         so.clickContinue();
-        HandlePop.getHandlePop();
-        so.clickNext();
-        so.clickUser();
-        so.clickLogout();
+        Thread.sleep(1000);
+        so.clickPaymentAdvance();
+        so.clickPaymentProceed();
+        /*so.clickCitizenUser();
+        so.clickCitizenlogout();*/
 
     } catch (Exception e) {
         throw new RuntimeException(e);
