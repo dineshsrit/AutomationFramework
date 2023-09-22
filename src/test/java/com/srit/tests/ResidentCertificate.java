@@ -4,6 +4,7 @@ import com.srit.config.*;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
+import com.srit.pages.LegalHeirPage;
 import com.srit.pages.ResidentPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.Select;
@@ -152,8 +153,8 @@ public class ResidentCertificate extends BaseTest {
         }
     }
 
-
-    @Test (dependsOnMethods = "applyforServices")
+//dependsOnMethods = "applyforServices"
+    @Test ()
     public void forwardByDAtoRI() throws Exception {
 
         try
@@ -169,7 +170,7 @@ public class ResidentCertificate extends BaseTest {
             rp.txt_da_remarks("some remarks");
             Thread.sleep(1000);
             DropDownUtils.dropdownSelect(rp.actiondropdown());
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             DropDownUtils.dropdownList(rp.actiondropdownlist(), "forward");
             Thread.sleep(1000);
             DropDownUtils.dropdownSelect(rp.officedropdown());
@@ -338,5 +339,94 @@ public class ResidentCertificate extends BaseTest {
 
     }
 
+    @Test
+    public void forwardtoOtherTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_residenceapplications();
+            ResidentPage rb=new ResidentPage();
+            rb.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(rb.tahsilfirstrecord());
+            Thread.sleep(3000);
+            rb.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(rb.actiondropdown());
+            Thread.sleep(2000);
+            DropDownUtils.dropdownList(rb.actiondropdownlist(), "Forward To Other Tahsil");
+            Thread.sleep(1000);
+            rb.txt_othertahsil_district("Kalahandi");
+            Thread.sleep(1000);
+            rb.clickhighlighted();
+            Thread.sleep(1000);
+            rb.txt_othertahsil_subdivision("Bhawanipatna");
+            Thread.sleep(1000);
+            rb.clickhighlighted();
+            Thread.sleep(1000);
+            rb.txt_othertahsil_tahsil("Kalahandi");
+            Thread.sleep(1000);
+            rb.clickhighlighted();
+            Thread.sleep(1000);
+            JavaScriptUtils.ScrollIntoView(rb.forward());
+            rb.clickrisubmit();
+            HandlePop.getHandlePop();
+            rb.clickricontinue();
+            String confirm= rb.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "resident No didnt match");
+            rb.clickdaclose();
+            rb.clickUser();
+            rb.clickLogout();
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void sendBacktoParentTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox();
+            cp.click_scrollleftlapplications();
+            JavascriptExecutor js=(JavascriptExecutor) DriverManager.getDriver();
+            js.executeScript("window.scrollBy(0,50);");
+            DropDownUtils.dropdownSelect(cp.othertahsilapplications());
+            ResidentPage rb=new ResidentPage();
+            rb.clickOtherTahsil();
+            cp.click_residenceapplications();
+            rb.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(rb.tahsilfirstrecord());
+            Thread.sleep(3000);
+            rb.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(rb.actiondropdown());
+            Thread.sleep(1000);
+            DropDownUtils.dropdownList(rb.actiondropdownlist(), "Sendback");
+            Thread.sleep(1000);
+            rb.clickrisubmit();
+            HandlePop.getHandlePop();
+            rb.clickricontinue();
+            String confirm= rb.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "Resident No didnt match");
+            rb.clickdaclose();
+            rb.clickUser();
+            rb.clickLogout();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

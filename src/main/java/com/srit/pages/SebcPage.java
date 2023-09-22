@@ -591,7 +591,7 @@ public class SebcPage extends BasePage {
 
     /*xpath for DA */
 
-    private final By lk_da_firstrecord=By.xpath("//mat-row[1]//mat-cell[2]//span");
+    private final By lk_da_firstrecord=By.xpath("//mat-row[1]//mat-cell[2]//span//a");
     private final By txt_da_remarks=By.xpath("//*[@ng-reflect-name='remarks']");
     private final By btn_action_drpdwn=By.xpath("//*[@ng-reflect-name='action']");
     private final By lst_action_drpdwn=By.xpath("//*[@class='mdc-list-item__primary-text']");
@@ -610,13 +610,16 @@ public class SebcPage extends BasePage {
 
     private final By btn_da_close=By.xpath("//span[@class='mdc-button__label' and text()='Close']");
 
+    private final By btn_csv=By.xpath("//*[@ng-reflect-message='CSV']");
+
+
     public void txt_da_remarks(String value)
     {
         sendkeys(txt_da_remarks, value, WaitStrategy.PRESENCE);
     }
-    public void click_firstrecord()
+    public WebElement click_firstrecord()
     {
-        click(lk_da_firstrecord, WaitStrategy.CLICKABLE);
+       return getWebElement(lk_da_firstrecord);
     }
 
     public WebElement actiondropdown()
@@ -665,6 +668,11 @@ public class SebcPage extends BasePage {
     public void clickdaclose()
     {
         click(btn_da_close, WaitStrategy.CLICKABLE);
+    }
+
+    public void click_csv()
+    {
+        click(btn_csv,WaitStrategy.CLICKABLE);
     }
 
     /*xpath for RI */
@@ -759,6 +767,16 @@ public class SebcPage extends BasePage {
     private final By btn_tahsilpreview_save=By.xpath("//span[@class='mdc-button__label' and text()='Save and Continue']");
     private final By btn_applydsc=By.xpath("//span[@class='mdc-button__label' and text()='Apply Digital Signature']");
 
+    private final By txt_othertahsil_district=By.xpath("//*[@ng-reflect-name='district']");
+
+    private final By lk_highligh=By.xpath("//*[@class='highlightTxt']");
+
+    private final By txt_othertahsil_subdivision=By.xpath("//*[@ng-reflect-name='subdivision']");
+
+    private final By txt_othertahsil_tahsil=By.xpath("//*[@ng-reflect-name='tahsil']");
+
+    private final By lk_othertahsil=By.xpath("//*[contains(@class,'mat-content ng-tns-c88-')]//mat-panel-title[contains(text(),'Bar')]");
+
     public void clicktahsilpreviewsave()
     {
         click(btn_tahsilpreview_save, WaitStrategy.CLICKABLE);
@@ -783,5 +801,30 @@ public class SebcPage extends BasePage {
     {
         sendkeys(txt_da_remarks, value, WaitStrategy.PRESENCE);
     }
+
+    public void txt_othertahsil_district(String value)
+    {
+        sendkeys(txt_othertahsil_district, value, WaitStrategy.PRESENCE);
+    }
+
+    public void txt_othertahsil_subdivision(String value)
+    {
+        sendkeys(txt_othertahsil_subdivision, value, WaitStrategy.PRESENCE);
+    }
+
+    public void txt_othertahsil_tahsil(String value)
+    {
+        sendkeys(txt_othertahsil_tahsil, value, WaitStrategy.PRESENCE);
+    }
+    public void clickhighlighted()
+    {
+        click(lk_highligh, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickOtherTahsil()
+    {
+        click(lk_othertahsil, WaitStrategy.CLICKABLE);
+    }
+
 
 }

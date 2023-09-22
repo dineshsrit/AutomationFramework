@@ -7,6 +7,8 @@ import com.srit.config.JavaScriptUtils;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
+import com.srit.pages.LegalHeirPage;
+import com.srit.pages.SolvencyPage;
 import com.srit.pages.TribePage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
@@ -208,5 +210,95 @@ public class TribeCertificate extends BaseTest{
             throw new RuntimeException(e);
         }
     }
+
+    @Test
+    public void forwardtoOtherTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_tribeapplications();
+            TribePage tp=new TribePage();
+            tp.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(tp.tahsilfirstrecord());
+            Thread.sleep(3000);
+            tp.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(tp.actiondropdown());
+            Thread.sleep(2000);
+            DropDownUtils.dropdownList(tp.actiondropdownlist(), "Forward To Other Tahsil");
+            Thread.sleep(1000);
+            tp.txt_othertahsil_district("Kalahandi");
+            Thread.sleep(1000);
+            tp.clickhighlighted();
+            Thread.sleep(1000);
+            tp.txt_othertahsil_subdivision("Bhawanipatna");
+            Thread.sleep(1000);
+            tp.clickhighlighted();
+            Thread.sleep(1000);
+            tp.txt_othertahsil_tahsil("Kalahandi");
+            Thread.sleep(1000);
+            tp.clickhighlighted();
+            Thread.sleep(1000);
+            JavaScriptUtils.ScrollIntoView(tp.forward());
+            tp.clickrisubmit();
+            HandlePop.getHandlePop();
+            tp.clickricontinue();
+            String confirm= tp.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "Tribe No didnt match");
+            tp.clickdaclose();
+            tp.clickUser();
+            tp.clickLogout();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    public void sendBacktoParentTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox();
+            cp.click_scrollleftlapplications();
+            JavascriptExecutor js=(JavascriptExecutor) DriverManager.getDriver();
+            js.executeScript("window.scrollBy(0,50);");
+            DropDownUtils.dropdownSelect(cp.othertahsilapplications());
+            TribePage tp=new TribePage();
+            tp.clickOtherTahsil();
+            cp.click_tribeapplications();
+            tp.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(tp.tahsilfirstrecord());
+            Thread.sleep(3000);
+            tp.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(tp.actiondropdown());
+            Thread.sleep(1000);
+            DropDownUtils.dropdownList(tp.actiondropdownlist(), "Sendback");
+            Thread.sleep(1000);
+            tp.clickrisubmit();
+            HandlePop.getHandlePop();
+            tp.clickricontinue();
+            String confirm= tp.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "Tribe No didnt match");
+            tp.clickdaclose();
+            tp.clickUser();
+            tp.clickLogout();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

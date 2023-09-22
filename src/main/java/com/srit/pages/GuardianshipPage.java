@@ -365,7 +365,6 @@ public class GuardianshipPage extends BasePage{
     private final By btn_ri_forward=By.xpath("//td[contains(text(),'Processing')]//following-sibling::td//mat-radio-button//div//div//input");
 
 
-
     public WebElement tahsilfirstrecord()
     {
         return getWebElement(lk_th_firstrecord);
@@ -418,6 +417,8 @@ public class GuardianshipPage extends BasePage{
         click(btn_da_close, WaitStrategy.CLICKABLE);
     }
 
+
+
     /*xpath for tahsil */
 
     private final By btn_tahsil_forward_approve=By.xpath("//td[contains(text(),'Approving')]//following-sibling::td//mat-radio-button//div//div//input");
@@ -426,6 +427,43 @@ public class GuardianshipPage extends BasePage{
     {
         return getWebElement(btn_tahsil_forward_approve);
     }
+
+    private final By txt_othertahsil_district=By.xpath("//*[@ng-reflect-name='district']");
+
+    private final By lk_highligh=By.xpath("//*[@class='highlightTxt']");
+
+    private final By txt_othertahsil_subdivision=By.xpath("//*[@ng-reflect-name='subdivision']");
+
+    private final By txt_othertahsil_tahsil=By.xpath("//*[@ng-reflect-name='tahsil']");
+
+    private final By lk_othertahsil=By.xpath("//*[contains(@class,'mat-content ng-tns-c88-')]//mat-panel-title[contains(text(),'Bar')]");
+
+
+
+    public void txt_othertahsil_district(String value)
+    {
+        sendkeys(txt_othertahsil_district, value, WaitStrategy.PRESENCE);
+    }
+
+    public void txt_othertahsil_subdivision(String value)
+    {
+        sendkeys(txt_othertahsil_subdivision, value, WaitStrategy.PRESENCE);
+    }
+
+    public void txt_othertahsil_tahsil(String value)
+    {
+        sendkeys(txt_othertahsil_tahsil, value, WaitStrategy.PRESENCE);
+    }
+    public void clickhighlighted()
+    {
+        click(lk_highligh, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickOtherTahsil()
+    {
+        click(lk_othertahsil, WaitStrategy.CLICKABLE);
+    }
+
 
     /*xpath for RI */
 

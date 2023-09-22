@@ -7,6 +7,7 @@ import com.srit.config.JavaScriptUtils;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
+import com.srit.pages.LegalHeirPage;
 import com.srit.pages.SolvencyPage;
 import com.srit.pages.TribePage;
 import org.openqa.selenium.JavascriptExecutor;
@@ -200,6 +201,98 @@ String solvency=null;
             so.clickTahsilcontinue();
             HandlePop.getHandlePop();
             so.clickDigitalSignature();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void forwardtoOtherTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_solapplications();
+            SolvencyPage so=new SolvencyPage();
+            so.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(so.tahsilfirstrecord());
+            Thread.sleep(3000);
+            so.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(so.actiondropdown());
+            Thread.sleep(2000);
+            DropDownUtils.dropdownList(so.actiondropdownlist(), "Forward To Other Tahsil");
+            Thread.sleep(1000);
+            so.txt_othertahsil_district("Kalahandi");
+            Thread.sleep(1000);
+            so.clickhighlighted();
+            Thread.sleep(1000);
+            so.txt_othertahsil_subdivision("Bhawanipatna");
+            Thread.sleep(1000);
+            so.clickhighlighted();
+            Thread.sleep(1000);
+            so.txt_othertahsil_tahsil("Kalahandi");
+            Thread.sleep(1000);
+            so.clickhighlighted();
+            Thread.sleep(1000);
+            JavaScriptUtils.ScrollIntoView(so.forward());
+            so.clickrisubmit();
+            HandlePop.getHandlePop();
+            so.clickricontinue();
+            String confirm= so.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "Solvency No didnt match");
+            so.clickdaclose();
+            so.clickUser();
+            so.clickLogout();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void sendBacktoParentTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox();
+            cp.click_scrollleftlapplications();
+            JavascriptExecutor js=(JavascriptExecutor) DriverManager.getDriver();
+            js.executeScript("window.scrollBy(0,50);");
+            DropDownUtils.dropdownSelect(cp.othertahsilapplications());
+
+
+            SolvencyPage so=new SolvencyPage();
+            so.clickOtherTahsil();
+            cp.click_solapplications();
+            so.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(so.tahsilfirstrecord());
+            Thread.sleep(3000);
+            so.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(so.actiondropdown());
+            Thread.sleep(1000);
+            DropDownUtils.dropdownList(so.actiondropdownlist(), "Sendback");
+            Thread.sleep(1000);
+            so.clickrisubmit();
+            HandlePop.getHandlePop();
+            so.clickricontinue();
+            String confirm= so.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "Solvency No didnt match");
+            so.clickdaclose();
+            so.clickUser();
+            so.clickLogout();
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

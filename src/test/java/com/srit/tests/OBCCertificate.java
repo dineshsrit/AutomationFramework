@@ -7,6 +7,7 @@ import com.srit.config.JavaScriptUtils;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
+import com.srit.pages.LegalHeirPage;
 import com.srit.pages.ObcPage;
 import com.srit.pages.SebcPage;
 import org.openqa.selenium.JavascriptExecutor;
@@ -124,8 +125,8 @@ public class OBCCertificate extends BaseTest{
             throw new RuntimeException(e);
         }
     }
-
-    @Test(dependsOnMethods = "applyforOBCServices")
+    //dependsOnMethods = "applyforOBCServices"
+    @Test()
     public void forwardtoRIbyDA()
     {
         try
@@ -137,6 +138,7 @@ public class OBCCertificate extends BaseTest{
                     click_applicationbox().
                     click_mypendingapplications().click_obcapplications();
             ObcPage sp= new ObcPage();
+            Thread.sleep(2000);
             sp.click_firstrecord();
             Thread.sleep(2000);
             sp.txt_da_remarks("some remarks");
@@ -163,6 +165,7 @@ public class OBCCertificate extends BaseTest{
         }
     }
 
+    //
     @Test(dependsOnMethods = "forwardtoRIbyDA")
     public void forwardtoTahsilbyRI()
     {
@@ -260,4 +263,100 @@ public class OBCCertificate extends BaseTest{
             throw new RuntimeException(e);
         }
     }
+
+  @Test
+  public void forwardtoOtherTahsil()
+  {
+      try
+      {
+          CoreApplicationPage cp= new CoreApplicationPage();
+          cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
+                  .clickLogin()
+                  .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_obcapplications();
+          ObcPage sp=new ObcPage();
+          sp.txt_searchbox("E-LHC/2023/149");
+          Thread.sleep(2000);
+          DropDownUtils.dropdownSelect(sp.tahsilfirstrecord());
+          Thread.sleep(3000);
+          sp.txt_ri_remarks("some remarks");
+          Thread.sleep(1000);
+          DropDownUtils.dropdownSelect(sp.actiondropdown());
+          Thread.sleep(2000);
+          DropDownUtils.dropdownList(sp.actiondropdownlist(), "Forward To Other Tahsil");
+          Thread.sleep(1000);
+          sp.txt_othertahsil_district("Kalahandi");
+          Thread.sleep(1000);
+          sp.clickhighlighted();
+          Thread.sleep(1000);
+          sp.txt_othertahsil_subdivision("Bhawanipatna");
+          Thread.sleep(1000);
+          sp.clickhighlighted();
+          Thread.sleep(1000);
+          sp.txt_othertahsil_tahsil("Kalahandi");
+          Thread.sleep(1000);
+          sp.clickhighlighted();
+          Thread.sleep(1000);
+          JavaScriptUtils.ScrollIntoView(sp.forward());
+          sp.clickrisubmit();
+          HandlePop.getHandlePop();
+          sp.clickricontinue();
+          String confirm= sp.getConfirmText().substring(12,26);
+          System.out.println("the Application No:" +confirm);
+          Assert.assertEquals("E-LHC/2023/149", confirm, "Obc No didnt match");
+          sp.clickdaclose();
+          sp.clickUser();
+          sp.clickLogout();
+
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+  }
+
+   @Test
+   public void sendBacktoParentTahsil()
+   {
+       try
+       {
+           CoreApplicationPage cp= new CoreApplicationPage();
+           cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
+                   .clickLogin()
+                   .clickCoreApplication().click_applicationbox();
+           cp.click_scrollleftlapplications();
+           JavascriptExecutor js=(JavascriptExecutor) DriverManager.getDriver();
+           js.executeScript("window.scrollBy(0,50);");
+           DropDownUtils.dropdownSelect(cp.othertahsilapplications());
+
+
+           ObcPage sp=new ObcPage();
+           sp.clickOtherTahsil();
+           cp.click_obcapplications();
+           sp.txt_searchbox("E-LHC/2023/149");
+           Thread.sleep(2000);
+           DropDownUtils.dropdownSelect(sp.tahsilfirstrecord());
+           Thread.sleep(3000);
+           sp.txt_ri_remarks("some remarks");
+           Thread.sleep(1000);
+           DropDownUtils.dropdownSelect(sp.actiondropdown());
+           Thread.sleep(1000);
+           DropDownUtils.dropdownList(sp.actiondropdownlist(), "Sendback");
+           Thread.sleep(1000);
+           sp.clickrisubmit();
+           HandlePop.getHandlePop();
+           sp.clickricontinue();
+           String confirm= sp.getConfirmText().substring(12,26);
+           System.out.println("the Application No:" +confirm);
+           Assert.assertEquals("E-LHC/2023/149", confirm, "Obc No didnt match");
+           sp.clickdaclose();
+           sp.clickUser();
+           sp.clickLogout();
+
+
+
+
+       } catch (Exception e) {
+           throw new RuntimeException(e);
+       }
+   }
+
+
 }

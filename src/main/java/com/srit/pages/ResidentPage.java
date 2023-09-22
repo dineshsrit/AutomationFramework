@@ -73,7 +73,7 @@ public class ResidentPage extends BasePage{
     private final By lk_citizen_logout=By.xpath("//*[@class='icon']//img[contains(@src,'logout')]");
     private final By lk_logout=By.xpath("//*[@ng-reflect-name='log-out']");
 
-    private final By lk_da_firstrecord=By.xpath("//mat-row[1]//mat-cell[2]//span");
+    private final By lk_da_firstrecord=By.xpath("//mat-row[1]//mat-cell[2]//span//a");
 
     private final By txt_da_remarks=By.xpath("//*[@ng-reflect-name='remarks']");
 
@@ -141,6 +141,15 @@ public class ResidentPage extends BasePage{
     private final By txt_returned_purpose=By.xpath("//*[@ng-reflect-name='purpose']");
 
 
+    private final By txt_othertahsil_district = By.xpath("//*[@ng-reflect-name='district']");
+
+    private final By lk_highligh = By.xpath("//*[@class='highlightTxt']");
+
+    private final By txt_othertahsil_subdivision = By.xpath("//*[@ng-reflect-name='subdivision']");
+
+    private final By txt_othertahsil_tahsil = By.xpath("//*[@ng-reflect-name='tahsil']");
+
+    private final By lk_othertahsil = By.xpath("//*[contains(@class,'mat-content ng-tns-c88-')]//mat-panel-title[contains(text(),'Bar')]");
 
 
 
@@ -509,4 +518,42 @@ public class ResidentPage extends BasePage{
         clear(txt_returned_purpose, WaitStrategy.PRESENCE);
     }
 
+    public void txt_othertahsil_district(String value)
+    {
+        sendkeys(txt_othertahsil_district, value, WaitStrategy.PRESENCE);
+    }
+
+    public void txt_othertahsil_subdivision(String value)
+    {
+        sendkeys(txt_othertahsil_subdivision, value, WaitStrategy.PRESENCE);
+    }
+
+    public void txt_othertahsil_tahsil(String value)
+    {
+        sendkeys(txt_othertahsil_tahsil, value, WaitStrategy.PRESENCE);
+    }
+    public void clickhighlighted()
+    {
+        click(lk_highligh, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickOtherTahsil()
+    {
+        click(lk_othertahsil, WaitStrategy.CLICKABLE);
+    }
+
+    public void txt_ri_remarks(String value)
+    {
+        sendkeys(txt_da_remarks, value, WaitStrategy.PRESENCE);
+    }
+
+    public void clickrisubmit()
+    {
+        click(btn_da_submit, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickricontinue()
+    {
+        click(btn_da_continue, WaitStrategy.CLICKABLE);
+    }
 }

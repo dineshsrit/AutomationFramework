@@ -8,6 +8,7 @@ import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
 import com.srit.pages.IncomePage;
+import com.srit.pages.LegalHeirPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -77,7 +78,8 @@ String Incomeno=null;
     }
 }
 
-@Test(dependsOnMethods = "applyforIncomeService")
+   // dependsOnMethods = "applyforIncomeService"
+@Test()
     public void forwardbyDAtoRI()
 {
     try
@@ -88,6 +90,7 @@ String Incomeno=null;
                 .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_incomeapplications();
 
         IncomePage in= new IncomePage();
+        Thread.sleep(2000);
         in.click_firstrecord();
         Thread.sleep(2000);
         in.txt_da_remarks("some remarks");
@@ -205,5 +208,101 @@ String Incomeno=null;
     }
 
 }
+
+  @Test
+    public void forwardtoOtherTahsil()
+  {
+      try
+      {
+          CoreApplicationPage cp= new CoreApplicationPage();
+          cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
+                  .clickLogin()
+                  .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_incomeapplications();
+          IncomePage in=new IncomePage();
+          in.txt_searchbox("E-LHC/2023/149");
+          Thread.sleep(2000);
+          DropDownUtils.dropdownSelect(in.tahsilfirstrecord());
+          Thread.sleep(3000);
+          in.txt_ri_remarks("some remarks");
+          Thread.sleep(1000);
+          DropDownUtils.dropdownSelect(in.actiondropdown());
+          Thread.sleep(2000);
+          DropDownUtils.dropdownList(in.actiondropdownlist(), "Forward To Other Tahsil");
+          Thread.sleep(1000);
+          in.txt_othertahsil_district("Kalahandi");
+          Thread.sleep(1000);
+          in.clickhighlighted();
+          Thread.sleep(1000);
+          in.txt_othertahsil_subdivision("Bhawanipatna");
+          Thread.sleep(1000);
+          in.clickhighlighted();
+          Thread.sleep(1000);
+          in.txt_othertahsil_tahsil("Kalahandi");
+          Thread.sleep(1000);
+          in.clickhighlighted();
+          Thread.sleep(1000);
+          JavaScriptUtils.ScrollIntoView(in.forward());
+          in.clickrisubmit();
+          HandlePop.getHandlePop();
+          in.clickricontinue();
+          String confirm= in.getConfirmText().substring(12,26);
+          System.out.println("the Application No:" +confirm);
+          Assert.assertEquals("E-LHC/2023/149", confirm, "Income No didnt match");
+          in.clickdaclose();
+          in.clickUser();
+          in.clickLogout();
+
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+  }
+
+  @Test
+    public void sendBacktoParentTahsil()
+  {
+      try
+      {
+          CoreApplicationPage cp= new CoreApplicationPage();
+          cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
+                  .clickLogin()
+                  .clickCoreApplication().click_applicationbox();
+          cp.click_scrollleftlapplications();
+          JavascriptExecutor js=(JavascriptExecutor) DriverManager.getDriver();
+          js.executeScript("window.scrollBy(0,50);");
+          DropDownUtils.dropdownSelect(cp.othertahsilapplications());
+
+
+          IncomePage in=new IncomePage();
+          in.clickOtherTahsil();
+          cp.click_legalapplications();
+          in.txt_searchbox("E-LHC/2023/149");
+          Thread.sleep(2000);
+          DropDownUtils.dropdownSelect(in.tahsilfirstrecord());
+          Thread.sleep(3000);
+          in.txt_ri_remarks("some remarks");
+          Thread.sleep(1000);
+          DropDownUtils.dropdownSelect(in.actiondropdown());
+          Thread.sleep(1000);
+          DropDownUtils.dropdownList(in.actiondropdownlist(), "Sendback");
+          Thread.sleep(1000);
+          in.clickrisubmit();
+          HandlePop.getHandlePop();
+          in.clickricontinue();
+          String confirm= in.getConfirmText().substring(12,26);
+          System.out.println("the Application No:" +confirm);
+          Assert.assertEquals("E-LHC/2023/149", confirm, "Income No didnt match");
+          in.clickdaclose();
+          in.clickUser();
+          in.clickLogout();
+
+
+
+
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+  }
+
+
 
 }

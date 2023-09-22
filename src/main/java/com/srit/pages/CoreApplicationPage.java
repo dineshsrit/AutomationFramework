@@ -60,9 +60,15 @@ public class CoreApplicationPage extends BasePage{
     private final By lk_sebcCert=By.partialLinkText("SEBC");
 
     private final By lk_obcCert=By.partialLinkText("OBC");
+
+    private final By lk_legalCert=By.partialLinkText("Legal");
     private final By lk_applicationsbox=By.linkText("Applications Box");
 
     private final By lk_mypendingapplications=By.linkText("My Pending Applications");
+
+    private final By lk_scrollleft=By.xpath("//aside[@id='leftsidebar']//div[@class='menu']//div[@class='ps__rail-y']");
+
+    private final By lk_othertahsilapplications=By.xpath("//span[@class='ng-star-inserted']//li[contains(a,'Other Tahasil Applications')]");
 
     private final By lk_issuanceResidenceCertificate=By.xpath("//*[contains(text(),'Residence')]");
 
@@ -83,6 +89,7 @@ public class CoreApplicationPage extends BasePage{
 
     private final By lk_issuanceObcCertificate=By.xpath("//*[contains(text(),'OBC')]");
 
+    private final By lk_issuanceLegalCertificate=By.xpath("//*[contains(text(),'Legal')]");
     private final By lk_officiallogin=By.linkText("Official Login");
 
 
@@ -220,6 +227,12 @@ public class CoreApplicationPage extends BasePage{
         return new ObcPage();
     }
 
+
+    public LegalHeirPage click_legalCertificate()
+    {
+        click(lk_legalCert, WaitStrategy.CLICKABLE);
+        return new LegalHeirPage();
+    }
     public IncomeAssetPage getassetCertificate()
     {
         click(lk_assetCert, WaitStrategy.CLICKABLE);
@@ -234,6 +247,17 @@ public class CoreApplicationPage extends BasePage{
     public CoreApplicationPage click_mypendingapplications()
     {
         click(lk_mypendingapplications, WaitStrategy.CLICKABLE);
+        return this;
+    }
+
+    public WebElement othertahsilapplications()
+    {
+      return getWebElement(lk_othertahsilapplications);
+
+    }
+    public CoreApplicationPage click_scrollleftlapplications()
+    {
+        click(lk_scrollleft, WaitStrategy.CLICKABLE);
         return this;
     }
 
@@ -298,6 +322,11 @@ public class CoreApplicationPage extends BasePage{
         return this;
     }
 
+    public CoreApplicationPage click_legalapplications()
+    {
+        click(lk_issuanceLegalCertificate, WaitStrategy.CLICKABLE);
+        return this;
+    }
     public CoreApplicationPage click_citizenlogin()
     {
         click(lk_citizen_login, WaitStrategy.CLICKABLE);

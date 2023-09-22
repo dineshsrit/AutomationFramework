@@ -8,6 +8,7 @@ import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
 import com.srit.pages.IncomeAssetPage;
+import com.srit.pages.LegalHeirPage;
 import com.srit.pages.TribePage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
@@ -224,6 +225,97 @@ String incomeasset=null;
             ia.clickTahsilcontinue();
             HandlePop.getHandlePop();
             ia.clickDigitalSignature();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void forwardtoOtherTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_incomeandassetapplications();
+            IncomeAssetPage ia=new IncomeAssetPage();
+            ia.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(ia.tahsilfirstrecord());
+            Thread.sleep(3000);
+            ia.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(ia.actiondropdown());
+            Thread.sleep(2000);
+            DropDownUtils.dropdownList(ia.actiondropdownlist(), "Forward To Other Tahsil");
+            Thread.sleep(1000);
+            ia.txt_othertahsil_district("Kalahandi");
+            Thread.sleep(1000);
+            ia.clickhighlighted();
+            Thread.sleep(1000);
+            ia.txt_othertahsil_subdivision("Bhawanipatna");
+            Thread.sleep(1000);
+            ia.clickhighlighted();
+            Thread.sleep(1000);
+            ia.txt_othertahsil_tahsil("Kalahandi");
+            Thread.sleep(1000);
+            ia.clickhighlighted();
+            Thread.sleep(1000);
+            JavaScriptUtils.ScrollIntoView(ia.forward());
+            ia.clickrisubmit();
+            HandlePop.getHandlePop();
+            ia.clickricontinue();
+            String confirm= ia.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "incomeandasset No didnt match");
+            ia.clickdaclose();
+            ia.clickUser();
+            ia.clickLogout();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void sendBacktoParentTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox();
+            cp.click_scrollleftlapplications();
+            JavascriptExecutor js=(JavascriptExecutor) DriverManager.getDriver();
+            js.executeScript("window.scrollBy(0,50);");
+            DropDownUtils.dropdownSelect(cp.othertahsilapplications());
+
+
+            IncomeAssetPage ia=new IncomeAssetPage();
+            ia.clickOtherTahsil();
+            cp.click_incomeandassetapplications();
+            ia.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(ia.tahsilfirstrecord());
+            Thread.sleep(3000);
+            ia.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(ia.actiondropdown());
+            Thread.sleep(1000);
+            DropDownUtils.dropdownList(ia.actiondropdownlist(), "Sendback");
+            Thread.sleep(1000);
+            ia.clickrisubmit();
+            HandlePop.getHandlePop();
+            ia.clickricontinue();
+            String confirm= ia.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "Income Asset No didnt match");
+            ia.clickdaclose();
+            ia.clickUser();
+            ia.clickLogout();
+
+
 
         } catch (Exception e) {
             throw new RuntimeException(e);

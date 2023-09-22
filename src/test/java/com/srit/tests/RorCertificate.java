@@ -7,6 +7,7 @@ import com.srit.config.JavaScriptUtils;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
+import com.srit.pages.LegalHeirPage;
 import com.srit.pages.RORPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
@@ -227,5 +228,99 @@ String ror=null;
         throw new RuntimeException(e);
     }
 }
+
+    @Test
+    public void forwardtoOtherTahsil()
+    {
+        try
+        {
+
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_rorapplications();
+            RORPage rr=new RORPage();
+            rr.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(rr.tahsilfirstrecord());
+            Thread.sleep(3000);
+            rr.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(rr.actiondropdown());
+            Thread.sleep(2000);
+            DropDownUtils.dropdownList(rr.actiondropdownlist(), "Forward To Other Tahsil");
+            Thread.sleep(1000);
+            rr.txt_othertahsil_district("Kalahandi");
+            Thread.sleep(1000);
+            rr.clickhighlighted();
+            Thread.sleep(1000);
+            rr.txt_othertahsil_subdivision("Bhawanipatna");
+            Thread.sleep(1000);
+            rr.clickhighlighted();
+            Thread.sleep(1000);
+            rr.txt_othertahsil_tahsil("Kalahandi");
+            Thread.sleep(1000);
+            rr.clickhighlighted();
+            Thread.sleep(1000);
+            JavaScriptUtils.ScrollIntoView(rr.forward());
+            rr.clickrisubmit();
+            HandlePop.getHandlePop();
+            rr.clickricontinue();
+            String confirm= rr.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "ror No didnt match");
+            rr.clickdaclose();
+            rr.clickUser();
+            rr.clickLogout();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    public void sendBacktoParentTahsil()
+    {
+        try
+        {
+            CoreApplicationPage cp= new CoreApplicationPage();
+            cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
+                    .clickLogin()
+                    .clickCoreApplication().click_applicationbox();
+            cp.click_scrollleftlapplications();
+            JavascriptExecutor js=(JavascriptExecutor) DriverManager.getDriver();
+            js.executeScript("window.scrollBy(0,50);");
+            DropDownUtils.dropdownSelect(cp.othertahsilapplications());
+
+
+            RORPage rr=new RORPage();
+            rr.clickOtherTahsil();
+            cp.click_rorapplications();
+            rr.txt_searchbox("E-LHC/2023/149");
+            Thread.sleep(2000);
+            DropDownUtils.dropdownSelect(rr.tahsilfirstrecord());
+            Thread.sleep(3000);
+            rr.txt_ri_remarks("some remarks");
+            Thread.sleep(1000);
+            DropDownUtils.dropdownSelect(rr.actiondropdown());
+            Thread.sleep(1000);
+            DropDownUtils.dropdownList(rr.actiondropdownlist(), "Sendback");
+            Thread.sleep(1000);
+            rr.clickrisubmit();
+            HandlePop.getHandlePop();
+            rr.clickricontinue();
+            String confirm= rr.getConfirmText().substring(12,26);
+            System.out.println("the Application No:" +confirm);
+            Assert.assertEquals("E-LHC/2023/149", confirm, "ror No didnt match");
+            rr.clickdaclose();
+            rr.clickUser();
+            rr.clickLogout();
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

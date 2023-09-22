@@ -578,6 +578,15 @@ public class IncomeAssetPage extends BasePage{
 
     /*Xpath for Tahsil Approval*/
 
+    private final By txt_othertahsil_district=By.xpath("//*[@ng-reflect-name='district']");
+
+    private final By lk_highligh=By.xpath("//*[@class='highlightTxt']");
+
+    private final By txt_othertahsil_subdivision=By.xpath("//*[@ng-reflect-name='subdivision']");
+
+    private final By txt_othertahsil_tahsil=By.xpath("//*[@ng-reflect-name='tahsil']");
+
+    private final By lk_othertahsil=By.xpath("//*[contains(@class,'mat-content ng-tns-c88-')]//mat-panel-title[contains(text(),'Bar')]");
 
     private final By btn_tahsilpreview_save=By.xpath("//span[@class='mdc-button__label' and text()='Save and Continue']");
     private final By btn_applydsc=By.xpath("//span[@class='mdc-button__label' and text()='Apply Digital Signature']");
@@ -606,6 +615,31 @@ public class IncomeAssetPage extends BasePage{
     {
         sendkeys(txt_da_remarks, value, WaitStrategy.PRESENCE);
     }
+
+    public void txt_othertahsil_district(String value)
+    {
+        sendkeys(txt_othertahsil_district, value, WaitStrategy.PRESENCE);
+    }
+
+    public void txt_othertahsil_subdivision(String value)
+    {
+        sendkeys(txt_othertahsil_subdivision, value, WaitStrategy.PRESENCE);
+    }
+
+    public void txt_othertahsil_tahsil(String value)
+    {
+        sendkeys(txt_othertahsil_tahsil, value, WaitStrategy.PRESENCE);
+    }
+    public void clickhighlighted()
+    {
+        click(lk_highligh, WaitStrategy.CLICKABLE);
+    }
+
+    public void clickOtherTahsil()
+    {
+        click(lk_othertahsil, WaitStrategy.CLICKABLE);
+    }
+
 
 
 }
