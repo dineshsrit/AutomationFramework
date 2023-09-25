@@ -1,9 +1,6 @@
 package com.srit.tests;
 
-import com.srit.config.DropDownUtils;
-import com.srit.config.FileUploadUtils;
-import com.srit.config.HandlePop;
-import com.srit.config.JavaScriptUtils;
+import com.srit.config.*;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
@@ -18,6 +15,9 @@ public class TribeCertificate extends BaseTest{
 
     String tribe=null;
 
+    Xls_Reader reader=new Xls_Reader(FrameworkConstants.getExcelFilepath());
+    String sheetname="Tribe";
+
     @Test
     public void applyforTribeServices()
     {
@@ -25,8 +25,8 @@ public class TribeCertificate extends BaseTest{
         {
             CoreApplicationPage cp=new CoreApplicationPage();
             cp.click_citizenlogin();
-            cp.txt_email("sunnyxmail@gmail.com");
-            cp.txt_password("Sunil@123");
+            cp.txt_email(reader.getCellData(sheetname, "Portalemailaddress", 2));
+            cp.txt_password(reader.getCellData(sheetname, "Portalpassword", 2));
             cp.click_sigin();
             cp.click_applyforServices();
             cp.click_viewallavailableServices();
@@ -38,18 +38,18 @@ public class TribeCertificate extends BaseTest{
            tp.click_Proceed();
            System.out.println(tp.getDocumentTitle());
 
-            DropDownUtils.selectByText(tp.districtdropdown(), "Bargarh");
-            DropDownUtils.selectByText(tp.subdivisiondropdown(), "Bargarh");
-            DropDownUtils.selectByText(tp.tahsildropdown(), "Bargarh");
-            DropDownUtils.selectByText(tp.ridropdown(), "Jamurda");
-            DropDownUtils.selectByText(tp.villagedropdown(),"jamu");
-            DropDownUtils.selectByText(tp.castedropdown(), "Santal");
-            DropDownUtils.selectByText(tp.religiondropdown(), "Hindu");
-            tp.txt_policestation("police station");
+            DropDownUtils.selectByText(tp.districtdropdown(), reader.getCellData(sheetname, "Pdistrict", 2));
+            DropDownUtils.selectByText(tp.subdivisiondropdown(), reader.getCellData(sheetname, "Psubdivision", 2));
+            DropDownUtils.selectByText(tp.tahsildropdown(), reader.getCellData(sheetname, "Ptahsil", 2));
+            DropDownUtils.selectByText(tp.ridropdown(), reader.getCellData(sheetname, "Pri", 2));
+            DropDownUtils.selectByText(tp.villagedropdown(),reader.getCellData(sheetname, "Pvillage", 2));
+            DropDownUtils.selectByText(tp.castedropdown(), reader.getCellData(sheetname, "Tribe", 2));
+            DropDownUtils.selectByText(tp.religiondropdown(), reader.getCellData(sheetname, "Religion", 2));
+            tp.txt_policestation(reader.getCellData(sheetname, "Ppolicestation", 2));
             FileUploadUtils.fileUpload(tp.fileUpload(), FrameworkConstants.getUploadfilepath());
-            tp.txt_purpose("some purpose");
+            tp.txt_purpose(reader.getCellData(sheetname, "Purpose", 2));
             DropDownUtils.dropdownSelect(tp.agree());
-            tp.txt_place("place");
+            tp.txt_place(reader.getCellData(sheetname, "Place", 2));
             tp.clicksubmit();
             HandlePop.getHandlePop();
             Thread.sleep(1000);

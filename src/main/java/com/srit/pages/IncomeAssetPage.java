@@ -125,6 +125,11 @@ public class IncomeAssetPage extends BasePage{
     private final By txt_confirm=By.xpath("//mat-dialog-content//p[contains(text(),'Application')]");
     private final By btn_Confirm=By.id("confirmBtnSubmit");
 
+    private final By chk_othersources=By.id("otherSourceOfIncome");
+
+    private final By txt_othersourcesincome=By.id("otherSourceOfIncomeValue");
+
+
     private final By incomeassetApplicationno=By.xpath("//*[@class='col-sm-3' and contains(text(),'E-IAC')]");
 
     private final By btn_continue=By.xpath("//*[@class='btn btn-success']");
@@ -377,6 +382,11 @@ public class IncomeAssetPage extends BasePage{
     public WebElement agree()
     {
         return  getWebElement(chk_agree);
+    }
+
+    public WebElement chkotherSources()
+    {
+        return getWebElement(chk_othersources);
     }
     public void txt_place(String value)
     {

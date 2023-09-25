@@ -1,9 +1,6 @@
 package com.srit.tests;
 
-import com.srit.config.DropDownUtils;
-import com.srit.config.FileUploadUtils;
-import com.srit.config.HandlePop;
-import com.srit.config.JavaScriptUtils;
+import com.srit.config.*;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
@@ -19,13 +16,16 @@ public class GuardianCertificate extends BaseTest{
 
     String guardian=null;
 
+    Xls_Reader reader=new Xls_Reader(FrameworkConstants.getExcelFilepath());
+    String sheetname="Guardian";
+
     @Test
     public void applyforGuardianservice() throws Exception {
 
         CoreApplicationPage cp=new CoreApplicationPage();
         cp.click_citizenlogin();
-        cp.txt_email("sunnyxmail@gmail.com");
-        cp.txt_password("Sunil@123");
+        cp.txt_email(reader.getCellData(sheetname, "Portalemailaddress", 2));
+        cp.txt_password(reader.getCellData(sheetname, "Portalpassword", 2));
         cp.click_sigin();
         cp.click_applyforServices();
         cp.click_viewallavailableServices();
@@ -39,29 +39,29 @@ public class GuardianCertificate extends BaseTest{
         gp.click_Proceed();
         System.out.println(gp.getDocumentTitle());
 
-        DropDownUtils.selectByText(gp.districtdropdown(), "Bargarh");
-        DropDownUtils.selectByText(gp.subdivisiondropdown(), "Bargarh");
-        DropDownUtils.selectByText(gp.tahsildropdown(), "Bargarh");
-        DropDownUtils.selectByText(gp.ridropdown(), "Jamurda");
-        DropDownUtils.selectByText(gp.villagedropdown(), "jamu");
-        gp.txt_policestation("police station");
-        DropDownUtils.selectByText(gp.legal_prefixdropdown(), "Shri");
-        gp.txt_legal_firstname("rakesh");
-        gp.txt_legal_lastname("r");
-        gp.txt_legal_age("25");
-        gp.txt_legal_father_firstname("father");
-        gp.txt_legal_father_lastname("fa");
-        DropDownUtils.selectByText(gp.legal_districtdropdown(), "Bargarh");
-        DropDownUtils.selectByText(gp.legal_subdivisiondropdown(), "Bargarh");
-        DropDownUtils.selectByText(gp.legal_tahsildropdown(), "Bargarh");
-        DropDownUtils.selectByText(gp.legal_ri_dropdown(), "Jamurda");
-        DropDownUtils.selectByText(gp.legal_village_dropdown(), "jamu");
-        DropDownUtils.selectByText(gp.legal_relation_dropdown(), "Aunt");
-        gp.txt_legal_policestation("police station");
+        DropDownUtils.selectByText(gp.districtdropdown(), reader.getCellData(sheetname, "Pdistrict", 2));
+        DropDownUtils.selectByText(gp.subdivisiondropdown(), reader.getCellData(sheetname, "Psubdivision", 2));
+        DropDownUtils.selectByText(gp.tahsildropdown(), reader.getCellData(sheetname, "Ptahsil", 2));
+        DropDownUtils.selectByText(gp.ridropdown(), reader.getCellData(sheetname, "Pri", 2));
+        DropDownUtils.selectByText(gp.villagedropdown(), reader.getCellData(sheetname, "Pvillage", 2));
+        gp.txt_policestation(reader.getCellData(sheetname, "Ppolicestation", 2));
+        DropDownUtils.selectByText(gp.legal_prefixdropdown(), reader.getCellData(sheetname, "Legalprefix", 2));
+        gp.txt_legal_firstname(reader.getCellData(sheetname, "Legalfirstname", 2));
+        gp.txt_legal_lastname(reader.getCellData(sheetname, "Legallastname", 2));
+        gp.txt_legal_age(reader.getCellData(sheetname, "Legalage", 2));
+        gp.txt_legal_father_firstname(reader.getCellData(sheetname, "Legalffirstname", 2));
+        gp.txt_legal_father_lastname(reader.getCellData(sheetname, "Legallastname", 2));
+        DropDownUtils.selectByText(gp.legal_districtdropdown(), reader.getCellData(sheetname, "Ldistrict", 2));
+        DropDownUtils.selectByText(gp.legal_subdivisiondropdown(), reader.getCellData(sheetname, "Lsubdivision", 2));
+        DropDownUtils.selectByText(gp.legal_tahsildropdown(), reader.getCellData(sheetname, "Ltahsil", 2));
+        DropDownUtils.selectByText(gp.legal_ri_dropdown(), reader.getCellData(sheetname, "Lri", 2));
+        DropDownUtils.selectByText(gp.legal_village_dropdown(), reader.getCellData(sheetname, "Lvillage", 2));
+        DropDownUtils.selectByText(gp.legal_relation_dropdown(), reader.getCellData(sheetname, "Relation", 2));
+        gp.txt_legal_policestation(reader.getCellData(sheetname, "Lpolicestation", 2));
         FileUploadUtils.fileUpload(gp.fileUpload(), FrameworkConstants.getUploadfilepath());
-        gp.txt_purpose("some purpose");
+        gp.txt_purpose(reader.getCellData(sheetname, "Purpose", 2));
         DropDownUtils.dropdownSelect(gp.agree());
-        gp.txt_place("place");
+        gp.txt_place(reader.getCellData(sheetname, "Place", 2));
         gp.clicksubmit();
         HandlePop.getHandlePop();
         Thread.sleep(1000);

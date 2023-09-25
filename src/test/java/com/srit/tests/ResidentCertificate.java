@@ -18,14 +18,18 @@ import java.awt.event.KeyEvent;
 public class ResidentCertificate extends BaseTest {
 
     String ResidentNo=null;
+    String sheetname="Resident";
+
+    Xls_Reader reader=new Xls_Reader(FrameworkConstants.getExcelFilepath());
+
     @Test()
     public void applyforServices() throws Exception {
 
         try {
             CoreApplicationPage cp=new CoreApplicationPage();
             cp.click_citizenlogin();
-            cp.txt_email("sunnyxmail@gmail.com");
-            cp.txt_password("Sunil@123");
+            cp.txt_email(reader.getCellData(sheetname, "Portalemailaddress", 2));
+            cp.txt_password(reader.getCellData(sheetname, "Portalpassword", 2));
             cp.click_sigin();
             cp.click_applyforServices();
             cp.click_viewallavailableServices();
@@ -40,16 +44,16 @@ public class ResidentCertificate extends BaseTest {
             HandlePop.getHandlePop();
             rp.clickProceed();
             System.out.println(rp.getDocumentTitle());
-            rp.txt_years("2");
-            rp.txt_months("2");
-            DropDownUtils.selectByText(rp.getdistrict(), "Bargarh");
-            DropDownUtils.selectByText(rp.subdivisiondropdown(), "Bargarh");
-            DropDownUtils.selectByText(rp.tahsildropdown(), "Bargarh");
-            DropDownUtils.selectByText(rp.ridropdown(), "Jamurda");
-            DropDownUtils.selectByText(rp.villagedropdown(), "jamu");
-            rp.txt_policestation("some station");
+            rp.txt_years(reader.getCellData(sheetname, "Years", 2));
+            rp.txt_months(reader.getCellData(sheetname, "Months", 2));
+            DropDownUtils.selectByText(rp.getdistrict(), reader.getCellData(sheetname, "Pdistrict", 2));
+            DropDownUtils.selectByText(rp.subdivisiondropdown(), reader.getCellData(sheetname, "Psubdivision", 2));
+            DropDownUtils.selectByText(rp.tahsildropdown(), reader.getCellData(sheetname, "Ptahsil", 2));
+            DropDownUtils.selectByText(rp.ridropdown(), reader.getCellData(sheetname, "Pri", 2));
+            DropDownUtils.selectByText(rp.villagedropdown(), reader.getCellData(sheetname, "Pvillage", 2));
+            rp.txt_policestation("Ppolicestation");
             FileUploadUtils.fileUpload(rp.fileupload(), FrameworkConstants.getUploadfilepath());
-            rp.txt_purpose("some").txt_place("some aplace");
+            rp.txt_purpose(reader.getCellData(sheetname, "Purpose", 2)).txt_place(reader.getCellData(sheetname, "Place", 2));
             DropDownUtils.dropdownSelect(rp.agree());
             rp.clicksubmit();
             HandlePop.getHandlePop();

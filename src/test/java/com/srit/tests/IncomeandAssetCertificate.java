@@ -1,9 +1,6 @@
 package com.srit.tests;
 
-import com.srit.config.DropDownUtils;
-import com.srit.config.FileUploadUtils;
-import com.srit.config.HandlePop;
-import com.srit.config.JavaScriptUtils;
+import com.srit.config.*;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
@@ -16,7 +13,12 @@ import org.testng.annotations.Test;
 
 public class IncomeandAssetCertificate extends BaseTest{
 
-String incomeasset=null;
+    String incomeasset=null;
+
+    String Incomeno=null;
+
+    Xls_Reader reader=new Xls_Reader(FrameworkConstants.getExcelFilepath());
+    String sheetname="Incomeandasset";
     @Test
     public void applyforIncomeAssetService()
     {
@@ -24,8 +26,8 @@ String incomeasset=null;
 
             CoreApplicationPage cp=new CoreApplicationPage();
             cp.click_citizenlogin();
-            cp.txt_email("sunnyxmail@gmail.com");
-            cp.txt_password("Sunil@123");
+            cp.txt_email(reader.getCellData(sheetname, "Portalemailaddress", 2));
+            cp.txt_password(reader.getCellData(sheetname, "Portalpassword", 2));
             cp.click_sigin();
             cp.click_applyforServices();
             cp.click_viewallavailableServices();
@@ -43,40 +45,43 @@ String incomeasset=null;
 
             try
             {
-                DropDownUtils.selectByText(ia.categorydropdown(), "State");
+                DropDownUtils.selectByText(ia.categorydropdown(), reader.getCellData(sheetname, "Category", 2));
                 DropDownUtils.dropdownSelect(ia.clicksibling());
-                ia.txt_sibling_name("rakesh");
-                ia.txt_sibling_age("16");
-                DropDownUtils.selectByText(ia.siblinggenderdropdown(), "Male");
-                DropDownUtils.selectByText(ia.siblingrelationdropdown(), "Brother");
+                ia.txt_sibling_name(reader.getCellData(sheetname, "Sname", 2));
+                ia.txt_sibling_age(reader.getCellData(sheetname, "Sage", 2));
+                DropDownUtils.selectByText(ia.siblinggenderdropdown(), reader.getCellData(sheetname, "Sgender", 2));
+                DropDownUtils.selectByText(ia.siblingrelationdropdown(), reader.getCellData(sheetname, "Srelation", 2));
                 DropDownUtils.dropdownSelect(ia.clickchildren());
-                ia.txt_children_name("some");
-                ia.txt_children_age("12");
-                DropDownUtils.selectByText(ia.childrengenderdropdown(), "Male");
-                DropDownUtils.selectByText(ia.childrenrelationdropdown(), "Son");
-                DropDownUtils.selectByText(ia.districtdropdown(), "Bargarh");
-                DropDownUtils.selectByText(ia.subdivisiondropdown(), "Bargarh");
-                DropDownUtils.selectByText(ia.tahsildropdown(), "Bargarh");
-                DropDownUtils.selectByText(ia.ridropdown(), "Jamurda");
-                DropDownUtils.selectByText(ia.villagedropdown(), "jamu");
+                ia.txt_children_name(reader.getCellData(sheetname, "Cname", 2));
+                ia.txt_children_age(reader.getCellData(sheetname, "Cage", 2));
+                DropDownUtils.selectByText(ia.childrengenderdropdown(), reader.getCellData(sheetname, "Cgender", 2));
+                DropDownUtils.selectByText(ia.childrenrelationdropdown(), reader.getCellData(sheetname, "Crelation", 2));
+                DropDownUtils.selectByText(ia.districtdropdown(), reader.getCellData(sheetname, "Pdistrict", 2));
+                DropDownUtils.selectByText(ia.subdivisiondropdown(), reader.getCellData(sheetname, "Psubdivision", 2));
+                DropDownUtils.selectByText(ia.tahsildropdown(), reader.getCellData(sheetname, "Ptahsil", 2));
+                DropDownUtils.selectByText(ia.ridropdown(), reader.getCellData(sheetname, "Pri", 2));
+                DropDownUtils.selectByText(ia.villagedropdown(), reader.getCellData(sheetname, "Pvillage", 2));
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
 
-            ia.txt_policestation("police station");
-            ia.txt_salary("1000");
-            ia.txt_business("1000");
-            ia.txt_agriculture("100");
-            ia.txt_profession("100");
-            DropDownUtils.selectByText(ia.assetdropdown(), "Agricultural Land");
-            ia.txt_assert_area("100");
-            DropDownUtils.selectByText(ia.unitdropdown(), "in Acre");
-            ia.txt_assert_location("testing");
+            ia.txt_policestation(reader.getCellData(sheetname, "Ppolicestation", 2));
+            ia.txt_salary(reader.getCellData(sheetname, "Salary", 2));
+            ia.txt_business(reader.getCellData(sheetname, "Business", 2));
+            ia.txt_agriculture(reader.getCellData(sheetname, "Agriculture", 2));
+            ia.txt_profession(reader.getCellData(sheetname, "Profession", 2));
+            DropDownUtils.dropdownSelect(ia.chkotherSources());
+            ia.txt_pleasespecify(reader.getCellData(sheetname, "Pleasespecify", 2));
+            ia.txt_incomefromothersource(reader.getCellData(sheetname, "Othersourcesincome", 2));
+            DropDownUtils.selectByText(ia.assetdropdown(), reader.getCellData(sheetname, "Asset", 2));
+            ia.txt_assert_area(reader.getCellData(sheetname, "Area", 2));
+            DropDownUtils.selectByText(ia.unitdropdown(), reader.getCellData(sheetname, "Unit", 2));
+            ia.txt_assert_location(reader.getCellData(sheetname, "Location", 2));
             FileUploadUtils.fileUpload(ia.fileUpload(), FrameworkConstants.getUploadfilepath());
-            ia.txt_purpose("some purpose");
+            ia.txt_purpose(reader.getCellData(sheetname, "Purpose", 2));
             DropDownUtils.dropdownSelect(ia.agree());
-            ia.txt_place("place");
+            ia.txt_place(reader.getCellData(sheetname, "Place", 2));
             ia.clicksubmit();
             HandlePop.getHandlePop();
             Thread.sleep(1000);

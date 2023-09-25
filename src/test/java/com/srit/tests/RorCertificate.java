@@ -1,9 +1,6 @@
 package com.srit.tests;
 
-import com.srit.config.DropDownUtils;
-import com.srit.config.FileUploadUtils;
-import com.srit.config.HandlePop;
-import com.srit.config.JavaScriptUtils;
+import com.srit.config.*;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
@@ -16,7 +13,12 @@ import org.testng.annotations.Test;
 public class RorCertificate extends BaseTest
 {
 
-String ror=null;
+ String ror=null;
+
+ Xls_Reader reader=new Xls_Reader(FrameworkConstants.getExcelFilepath());
+
+ String sheetname="Ror";
+
 @Test
     public void applyforRorService()
 {
@@ -25,8 +27,8 @@ String ror=null;
 
         CoreApplicationPage cp=new CoreApplicationPage();
         cp.click_citizenlogin();
-        cp.txt_email("sunnyxmail@gmail.com");
-        cp.txt_password("Sunil@123");
+        cp.txt_email(reader.getCellData(sheetname, "Portalemailaddress", 2));
+        cp.txt_password(reader.getCellData(sheetname, "Portalpassword", 2));
         cp.click_sigin();
         cp.click_applyforServices();
         cp.click_viewallavailableServices();
@@ -40,27 +42,27 @@ String ror=null;
         System.out.println(rr.getDocumentTitle());
         try
         {
-            DropDownUtils.selectByText(rr.districtdropdown(), "Bargarh");
+            DropDownUtils.selectByText(rr.districtdropdown(), reader.getCellData(sheetname, "Pdistrict", 2));
 
-            DropDownUtils.selectByText(rr.subdivisiondropdown(), "Bargarh");
-            DropDownUtils.selectByText(rr.tahsildropdown(), "Bargarh");
-            DropDownUtils.selectByText(rr.ridropdown(), "Jamurda");
-            DropDownUtils.selectByText(rr.villagedropdown(), "jamu");
-            rr.txt_policestation("police station");
-            DropDownUtils.selectByText(rr.rordistrictdropdown(), "Bargarh");
-            DropDownUtils.selectByText(rr.rorsubdivisiondropdown(), "Bargarh");
+            DropDownUtils.selectByText(rr.subdivisiondropdown(), reader.getCellData(sheetname, "Psubdivision", 2));
+            DropDownUtils.selectByText(rr.tahsildropdown(), reader.getCellData(sheetname, "Ptahsil", 2));
+            DropDownUtils.selectByText(rr.ridropdown(), reader.getCellData(sheetname, "Pri", 2));
+            DropDownUtils.selectByText(rr.villagedropdown(), reader.getCellData(sheetname, "Pvillage", 2));
+            rr.txt_policestation(reader.getCellData(sheetname, "Ppolicestation", 2));
+            DropDownUtils.selectByText(rr.rordistrictdropdown(), reader.getCellData(sheetname, "Rdistrict", 2));
+            DropDownUtils.selectByText(rr.rorsubdivisiondropdown(), reader.getCellData(sheetname, "Rsubdivision", 2));
 
-            DropDownUtils.selectByText(rr.rortahsildropdown(), "Bargarh");
-            DropDownUtils.selectByText(rr.rorridropdown(), "Jamurda");
-            DropDownUtils.selectByText(rr.rorvillagedropdown(), "jamu");
-            rr.txt_ror_policestation("police station");
-            rr.txt_khatano("2002/20");
-            rr.txt_plot_no("200/20");
+            DropDownUtils.selectByText(rr.rortahsildropdown(), reader.getCellData(sheetname, "Rtahsil", 2));
+            DropDownUtils.selectByText(rr.rorridropdown(), reader.getCellData(sheetname, "Rri", 2));
+            DropDownUtils.selectByText(rr.rorvillagedropdown(), reader.getCellData(sheetname, "Rvillage", 2));
+            rr.txt_ror_policestation(reader.getCellData(sheetname, "Rpolicestation", 2));
+            rr.txt_khatano(reader.getCellData(sheetname, "Khatano", 2));
+            rr.txt_plot_no(reader.getCellData(sheetname, "Plotno", 2));
             FileUploadUtils.fileUpload(rr.fileUpload(), FrameworkConstants.getUploadfilepath());
-            rr.txt_castetribe("caste");
-            rr.txt_purpose("some purpose");
+            rr.txt_castetribe(reader.getCellData(sheetname, "Caste", 2));
+            rr.txt_purpose(reader.getCellData(sheetname, "Purpose", 2));
             DropDownUtils.dropdownSelect(rr.agree());
-            rr.txt_place("place");
+            rr.txt_place(reader.getCellData(sheetname, "Place", 2));
             rr.clicksubmit();
             HandlePop.getHandlePop();
             Thread.sleep(1000);

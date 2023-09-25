@@ -1,9 +1,6 @@
 package com.srit.tests;
 
-import com.srit.config.DropDownUtils;
-import com.srit.config.FileUploadUtils;
-import com.srit.config.HandlePop;
-import com.srit.config.JavaScriptUtils;
+import com.srit.config.*;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
@@ -15,7 +12,10 @@ import org.testng.annotations.Test;
 
 public class IncomeCertificate extends BaseTest{
 
-String Incomeno=null;
+    String Incomeno=null;
+
+    Xls_Reader reader=new Xls_Reader(FrameworkConstants.getExcelFilepath());
+    String sheetname="Income";
 
 @Test
     public void applyforIncomeService()
@@ -25,8 +25,8 @@ String Incomeno=null;
 
         CoreApplicationPage cp=new CoreApplicationPage();
         cp.click_citizenlogin();
-        cp.txt_email("sunnyxmail@gmail.com");
-        cp.txt_password("Sunil@123");
+        cp.txt_email(reader.getCellData(sheetname, "Portalemailaddress", 2));
+        cp.txt_password(reader.getCellData(sheetname, "Portalpassword", 2));
         cp.click_sigin();
         cp.click_applyforServices();
         cp.click_viewallavailableServices();
@@ -42,21 +42,21 @@ String Incomeno=null;
         JavascriptExecutor js= (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("window.scrollBy(0,300)", "");
 
-        DropDownUtils.selectByText(in.districtdropdown(), "Bargarh");
-        DropDownUtils.selectByText(in.subdivisiondropdown(), "Bargarh");
-        DropDownUtils.selectByText(in.tahsildropdown(), "Bargarh");
-        DropDownUtils.selectByText(in.ridropdown(), "Jamurda");
-        DropDownUtils.selectByText(in.villagedropdown(), "jamu");
-        in.txt_policestation("some station");
-        in.txt_agriculture("50");
-        in.txt_salary("50");
-        in.txt_trade("50");
-        in.txt_others("52");
+        DropDownUtils.selectByText(in.districtdropdown(), reader.getCellData(sheetname, "Pdistrict", 2));
+        DropDownUtils.selectByText(in.subdivisiondropdown(), reader.getCellData(sheetname, "Psubdivision", 2));
+        DropDownUtils.selectByText(in.tahsildropdown(), reader.getCellData(sheetname, "Ptahsil", 2));
+        DropDownUtils.selectByText(in.ridropdown(), reader.getCellData(sheetname, "Pri", 2));
+        DropDownUtils.selectByText(in.villagedropdown(), reader.getCellData(sheetname, "Pvillage", 2));
+        in.txt_policestation(reader.getCellData(sheetname, "Ppolicestation", 2));
+        in.txt_agriculture(reader.getCellData(sheetname, "Agriculture", 2));
+        in.txt_salary(reader.getCellData(sheetname, "Salary", 2));
+        in.txt_trade(reader.getCellData(sheetname, "Trade", 2));
+        in.txt_others(reader.getCellData(sheetname, "Othersources", 2));
         FileUploadUtils.fileUpload(in.fileUpload(), FrameworkConstants.getUploadfilepath());
-        in.txt_purpose("some purpose");
+        in.txt_purpose(reader.getCellData(sheetname, "Purpose", 2));
         Thread.sleep(2000);
         DropDownUtils.dropdownSelect(in.agree());
-        in.txt_place("place");
+        in.txt_place(reader.getCellData(sheetname, "Place", 2));
         in.clicksubmit();
         HandlePop.getHandlePop();
         Thread.sleep(1000);

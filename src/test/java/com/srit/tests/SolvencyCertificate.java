@@ -1,9 +1,6 @@
 package com.srit.tests;
 
-import com.srit.config.DropDownUtils;
-import com.srit.config.FileUploadUtils;
-import com.srit.config.HandlePop;
-import com.srit.config.JavaScriptUtils;
+import com.srit.config.*;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
 import com.srit.pages.CoreApplicationPage;
@@ -19,6 +16,10 @@ public class SolvencyCertificate extends BaseTest{
 
 String solvency=null;
 
+String sheetname="Solvency";
+
+Xls_Reader reader=new Xls_Reader(FrameworkConstants.getExcelFilepath());
+
 @Test
     public void applyforSolvencyService()
 {
@@ -27,8 +28,8 @@ String solvency=null;
 
         CoreApplicationPage cp=new CoreApplicationPage();
         cp.click_citizenlogin();
-        cp.txt_email("sunnyxmail@gmail.com");
-        cp.txt_password("Sunil@123");
+        cp.txt_email(reader.getCellData(sheetname, "Portalemailaddress", 2));
+        cp.txt_password(reader.getCellData(sheetname, "Portalpassword", 2));
         cp.click_sigin();
         cp.click_applyforServices();
         cp.click_viewallavailableServices();
@@ -39,21 +40,21 @@ String solvency=null;
         SolvencyPage so= cp.click_solCertificate();
         so.click_Proceed();
         System.out.println(so.getDocumentTitle());
-        DropDownUtils.selectByText(so.districtdropdown(), "Bargarh");
-        DropDownUtils.selectByText(so.subdivisiondropdown(), "Bargarh");
-        DropDownUtils.selectByText(so.tahsildropdown(), "Bargarh");
-        DropDownUtils.selectByText(so.ridropdown(), "Jamurda");
-        DropDownUtils.selectByText(so.villagedropdown(),"jamu");
-        so.txt_policestation("police station");
-        so.txt_solvencyamount("1000");
-        so.txt_landpropertyvalue("100");
-        so.txt_builidngpropertyvalue("100");
-        so.txt_immovableproperty("testing");
-        so.txt_immovablepropertyvalue("100");
+        DropDownUtils.selectByText(so.districtdropdown(), reader.getCellData(sheetname, "Pdistrict", 2));
+        DropDownUtils.selectByText(so.subdivisiondropdown(), reader.getCellData(sheetname, "Psubdivision", 2));
+        DropDownUtils.selectByText(so.tahsildropdown(), reader.getCellData(sheetname, "Ptahsil", 2));
+        DropDownUtils.selectByText(so.ridropdown(), reader.getCellData(sheetname, "Pri", 2));
+        DropDownUtils.selectByText(so.villagedropdown(),reader.getCellData(sheetname, "Pvillage", 2));
+        so.txt_policestation(reader.getCellData(sheetname, "Ppolicestation", 2));
+        so.txt_solvencyamount(reader.getCellData(sheetname, "Amount", 2));
+        so.txt_landpropertyvalue(reader.getCellData(sheetname, "LandPropertyvalue", 2));
+        so.txt_builidngpropertyvalue(reader.getCellData(sheetname, "BuildingPropertyValue", 2));
+        so.txt_immovableproperty(reader.getCellData(sheetname, "OtherImmovableProperty", 2));
+        so.txt_immovablepropertyvalue(reader.getCellData(sheetname, "ImmovableProperty", 2));
         FileUploadUtils.fileUpload(so.fileUpload(), FrameworkConstants.getUploadfilepath());
-        so.txt_purpose("some purpose");
+        so.txt_purpose(reader.getCellData(sheetname, "Purpose", 2));
         DropDownUtils.dropdownSelect(so.agree());
-        so.txt_place("place");
+        so.txt_place(reader.getCellData(sheetname, "Place", 2));
         so.clicksubmit();
         HandlePop.getHandlePop();
         Thread.sleep(1000);
