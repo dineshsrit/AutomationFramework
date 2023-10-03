@@ -246,7 +246,7 @@ public class SolvencyPage  extends BasePage{
 
     /*xpath for DA */
 
-    private final By lk_da_firstrecord=By.xpath("//mat-row[1]//mat-cell[2]//span");
+    private final By lk_da_firstrecord=By.xpath("//mat-row[1]//mat-cell[2]//span//a");
     private final By txt_da_remarks=By.xpath("//*[@ng-reflect-name='remarks']");
     private final By btn_action_drpdwn=By.xpath("//*[@ng-reflect-name='action']");
     private final By lst_action_drpdwn=By.xpath("//*[@class='mdc-list-item__primary-text']");

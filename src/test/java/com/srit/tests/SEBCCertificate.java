@@ -1,15 +1,9 @@
 package com.srit.tests;
 
-import com.srit.config.DropDownUtils;
-import com.srit.config.FileUploadUtils;
-import com.srit.config.HandlePop;
-import com.srit.config.JavaScriptUtils;
+import com.srit.config.*;
 import com.srit.constants.FrameworkConstants;
 import com.srit.driver.DriverManager;
-import com.srit.pages.CoreApplicationPage;
-import com.srit.pages.LegalHeirPage;
-import com.srit.pages.SebcPage;
-import com.srit.pages.TribePage;
+import com.srit.pages.*;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,6 +13,9 @@ public class SEBCCertificate extends BaseTest{
 
     String sebc=null;
 
+   Xls_Reader reader=new Xls_Reader(FrameworkConstants.getExcelFilepath());
+   String sheetname="Sebc";
+
     @Test
     public void applyforSEBCServices()
     {
@@ -27,8 +24,8 @@ public class SEBCCertificate extends BaseTest{
 
          CoreApplicationPage cp=new CoreApplicationPage();
          cp.click_citizenlogin();
-         cp.txt_email("sunnyxmail@gmail.com");
-         cp.txt_password("Sunil@123");
+         cp.txt_email(reader.getCellData(sheetname, "Portalemailaddress", 2));
+         cp.txt_password(reader.getCellData(sheetname, "Portalpassword", 2));
          cp.click_sigin();
          cp.click_applyforServices();
          cp.click_viewallavailableServices();
@@ -36,72 +33,72 @@ public class SEBCCertificate extends BaseTest{
             cp.enter_username("csc1.sundar").enter_password("Pass@1231").clickLogin().clickCoreApplication()
                     .clickServices().clickSubmitApplication().txt_createuai1("4462")
                     .txt_createuai2("0306").txt_createuai3("0000").txt_createuai4("0299").btn_create_uai();*/
-            SebcPage sp= cp.click_sebcCertificate();
-            sp.click_Proceed();
-            System.out.println(sp.getDocumentTitle());
+         SebcPage sp= cp.click_sebcCertificate();
+         sp.click_Proceed();
+         System.out.println(sp.getDocumentTitle());
             try
             {
              DropDownUtils.dropdownSelect(sp.clickpermanentAddress());
-             DropDownUtils.selectByText(sp.permanentdistrictdropdown(), "Balangir");
+             DropDownUtils.selectByText(sp.permanentdistrictdropdown(), reader.getCellData(sheetname, "Perdistrict", 2));
              Thread.sleep(1000);
-             DropDownUtils.selectByText(sp.permanentblockdropdown(), "Balangir");
+             DropDownUtils.selectByText(sp.permanentblockdropdown(), reader.getCellData(sheetname, "Perblock", 2));
              Thread.sleep(1000);
-             DropDownUtils.selectByText(sp.permanentgpdropdown(), "Balangir");
+             DropDownUtils.selectByText(sp.permanentgpdropdown(), reader.getCellData(sheetname, "Pergp", 2));
              Thread.sleep(1000);
-             DropDownUtils.selectByText(sp.permanentvillagedropdown(), "Adendungri");
-             DropDownUtils.selectByText(sp.districtdropdown(), "Bargarh");
-             DropDownUtils.selectByText(sp.subdivisiondropdown(),"Bargarh");
-             DropDownUtils.selectByText(sp.tahsildropdown(), "Bargarh");
-             DropDownUtils.selectByText(sp.ridropdown(), "Jamurda");
-             DropDownUtils.selectByText(sp.villagedropdown(), "jamu");
-             sp.txt_policestation("police station");
+             DropDownUtils.selectByText(sp.permanentvillagedropdown(), reader.getCellData(sheetname, "Pervillage", 2));
+             DropDownUtils.selectByText(sp.districtdropdown(), reader.getCellData(sheetname, "Pdistrict", 2));
+             DropDownUtils.selectByText(sp.subdivisiondropdown(),reader.getCellData(sheetname, "Psubdivision", 2));
+             DropDownUtils.selectByText(sp.tahsildropdown(), reader.getCellData(sheetname, "Ptahsil", 2));
+             DropDownUtils.selectByText(sp.ridropdown(), reader.getCellData(sheetname, "Pri", 2));
+             DropDownUtils.selectByText(sp.villagedropdown(), reader.getCellData(sheetname, "Pvillage", 2));
+             sp.txt_policestation(reader.getCellData(sheetname, "Ppolicestation", 2));
 
              DropDownUtils.dropdownSelect(sp.clickpresentAddress());
-             DropDownUtils.selectByText(sp.presentdistrictdropdown(), "Balangir");
+             DropDownUtils.selectByText(sp.presentdistrictdropdown(), reader.getCellData(sheetname, "Predistrict", 2));
              Thread.sleep(1000);
-             DropDownUtils.selectByText(sp.presentblockdropdown(), "Balangir");
+             DropDownUtils.selectByText(sp.presentblockdropdown(), reader.getCellData(sheetname, "Preblock", 2));
              Thread.sleep(1000);
-             DropDownUtils.selectByText(sp.presentgpdropdown(),"Balangir");
+             DropDownUtils.selectByText(sp.presentgpdropdown(),reader.getCellData(sheetname, "Pregp", 2));
              Thread.sleep(1000);
-             DropDownUtils.selectByText(sp.presenttvillagedropdown(),"Adendungri");
-             DropDownUtils.selectByText(sp.castedropdown(), "Hansi");
+             DropDownUtils.selectByText(sp.presenttvillagedropdown(),reader.getCellData(sheetname, "Previllage", 2));
+             DropDownUtils.selectByText(sp.castedropdown(), reader.getCellData(sheetname, "Caste", 2));
 
-             DropDownUtils.selectByText(sp.religiondropdown(), "Hindu");
+             DropDownUtils.selectByText(sp.religiondropdown(), reader.getCellData(sheetname, "Religion", 2));
              DropDownUtils.dropdownSelect(sp.clickFather());
-             DropDownUtils.selectByText(sp.servicedropdown(), "State");
-             sp.txt_designation("designation");
-             sp.txt_scaleofpay("1000");
-             sp.txt_father_age("23");
-             sp.txt_father_organization("srit");
-             sp.txt_father_intdesignation("designation");
-             sp.txt_father_puborganization("public organization");
-             sp.txt_gov_designation("designation");
-             sp.txt_annualincome("1000");
-             sp.txt_father_paradesignation("paradesignation");
-             sp.txt_father_parascaleofpay("1000");
-             sp.txt_father_occupation("occupation");
-             sp.txt_father_agri_landlocation("location");
-             sp.txt_father_agri_landsize("23");
-             sp.txt_father_irrigateone("78");
-             sp.txt_father_irrigatetwo("78");
-             sp.txt_father_irrigatethree("ui");
-             sp.txt_father_uniirrigateone("78");
-             sp.txt_father_unirrigatetwo("6767");
-             sp.txt_father_unirrigatethree("56556");
-             DropDownUtils.selectByText(sp.cropsndropdown(), "Crop plant");
-             sp.txt_plantation_location("location");
-             sp.txt_plantation_area("89");
-             sp.txt_vacant_locationproperty("testing");
-             sp.txt_vacant_detailsofproperty("testing");
-             sp.txt_vacant_useto("testing");
-             sp.txt_father_annualincome("100");
-             sp.txt_father_wealthtax("1000");
-             sp.txt_otherremarks("testing");
+             DropDownUtils.selectByText(sp.servicedropdown(), reader.getCellData(sheetname, "Service", 2));
+             sp.txt_designation(reader.getCellData(sheetname, "Designation", 2));
+             sp.txt_scaleofpay(reader.getCellData(sheetname, "Govscaleofpay", 2));
+             sp.txt_father_age(reader.getCellData(sheetname, "Age", 2));
+             sp.txt_father_organization(reader.getCellData(sheetname, "InterOrganization", 2));
+             sp.txt_father_intdesignation(reader.getCellData(sheetname, "Interdesignation", 2));
+             sp.txt_father_puborganization(reader.getCellData(sheetname, "PubOrganization", 2));
+             sp.txt_gov_designation(reader.getCellData(sheetname, "Pubdesignation", 2));
+             sp.txt_annualincome(reader.getCellData(sheetname, "Annualincome", 2));
+             sp.txt_father_paradesignation(reader.getCellData(sheetname, "Paradesignation", 2));
+             sp.txt_father_parascaleofpay(reader.getCellData(sheetname, "ParaScaleofpay", 2));
+             sp.txt_father_occupation(reader.getCellData(sheetname, "Appoccupation", 2));
+             sp.txt_father_agri_landlocation(reader.getCellData(sheetname, "Proplocation", 2));
+             sp.txt_father_agri_landsize(reader.getCellData(sheetname, "Propsize", 2));
+             sp.txt_father_irrigateone(reader.getCellData(sheetname, "Irrigatedone", 2));
+             sp.txt_father_irrigatetwo(reader.getCellData(sheetname, "Irrigatedtwo", 2));
+             sp.txt_father_irrigatethree(reader.getCellData(sheetname, "Irrigatedthree", 2));
+             sp.txt_father_uniirrigateone(reader.getCellData(sheetname, "UnirragatedOne", 2));
+             sp.txt_father_unirrigatetwo(reader.getCellData(sheetname, "Unirragatedtwo", 2));
+             sp.txt_father_unirrigatethree(reader.getCellData(sheetname, "Unirragatedthree", 2));
+             DropDownUtils.selectByText(sp.cropsndropdown(), reader.getCellData(sheetname, "Crops", 2));
+             sp.txt_plantation_location(reader.getCellData(sheetname, "Location", 2));
+             sp.txt_plantation_area(reader.getCellData(sheetname, "Areaofplantation", 2));
+             sp.txt_vacant_locationproperty(reader.getCellData(sheetname, "Locationofproperty", 2));
+             sp.txt_vacant_detailsofproperty(reader.getCellData(sheetname, "Detailsofproperty", 2));
+             sp.txt_vacant_useto(reader.getCellData(sheetname, "Use", 2));
+             sp.txt_father_annualincome(reader.getCellData(sheetname, "Wealthannualincome", 2));
+             sp.txt_father_wealthtax(reader.getCellData(sheetname, "Wealthtaxdetails", 2));
+             sp.txt_otherremarks(reader.getCellData(sheetname, "remarks", 2));
              FileUploadUtils.fileUpload(sp.fileUpload(), FrameworkConstants.getUploadfilepath());
-             sp.txt_purpose("some purpose");
+             sp.txt_purpose(reader.getCellData(sheetname, "Purpose", 2));
              Thread.sleep(2000);
              DropDownUtils.dropdownSelect(sp.agree());
-             sp.txt_place("place");
+             sp.txt_place(reader.getCellData(sheetname, "Place", 2));
              sp.clicksubmit();
              HandlePop.getHandlePop();
              Thread.sleep(1000);
@@ -118,7 +115,6 @@ public class SEBCCertificate extends BaseTest{
              sp.clickCitizenUser();
              sp.clickCitizenlogout();
 
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -133,6 +129,8 @@ public class SEBCCertificate extends BaseTest{
    try
    {
     CoreApplicationPage cp= new CoreApplicationPage();
+    cp.click_OfficialLogin();
+    HandleTab.getHandleTab(1);
     cp.enter_username("da.bargarh").enter_password("Pass@1231")
             .clickLogin()
             .clickCoreApplication().
@@ -177,6 +175,8 @@ public class SEBCCertificate extends BaseTest{
   try
   {
    CoreApplicationPage cp= new CoreApplicationPage();
+   cp.click_OfficialLogin();
+   HandleTab.getHandleTab(1);
    cp.enter_username("ri.jamurda").enter_password("Pass@1231")
            .clickLogin()
            .clickCoreApplication().
@@ -238,6 +238,8 @@ public class SEBCCertificate extends BaseTest{
    try
    {
     CoreApplicationPage cp= new CoreApplicationPage();
+    cp.click_OfficialLogin();
+    HandleTab.getHandleTab(1);
     cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
             .clickLogin()
             .clickCoreApplication().click_applicationbox()
@@ -274,6 +276,8 @@ public class SEBCCertificate extends BaseTest{
     try
     {
      CoreApplicationPage cp= new CoreApplicationPage();
+     cp.click_OfficialLogin();
+     HandleTab.getHandleTab(1);
      cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
              .clickLogin()
              .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_sebcapplications();
@@ -323,6 +327,8 @@ public class SEBCCertificate extends BaseTest{
      try
      {
       CoreApplicationPage cp= new CoreApplicationPage();
+      cp.click_OfficialLogin();
+      HandleTab.getHandleTab(1);
       cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
               .clickLogin()
               .clickCoreApplication().click_applicationbox();

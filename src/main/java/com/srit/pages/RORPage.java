@@ -272,7 +272,7 @@ public class RORPage extends BasePage {
 
     /*xpath for DA */
 
-    private final By lk_da_firstrecord = By.xpath("//mat-row[1]//mat-cell[2]//span");
+    private final By lk_da_firstrecord = By.xpath("//mat-row[1]//mat-cell[2]//span//a");
 
     private final By btn_manual_upload = By.xpath("//*[@ng-reflect-value='true' and contains(@id, 'mat-radio-')]");
 

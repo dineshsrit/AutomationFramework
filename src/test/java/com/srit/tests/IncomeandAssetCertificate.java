@@ -112,6 +112,8 @@ public class IncomeandAssetCertificate extends BaseTest{
         try
         {
             CoreApplicationPage cp= new CoreApplicationPage();
+            cp.click_OfficialLogin();
+            HandleTab.getHandleTab(1);
             cp.enter_username("da.bargarh").enter_password("Pass@1231")
                     .clickLogin()
                     .clickCoreApplication().
@@ -151,6 +153,8 @@ public class IncomeandAssetCertificate extends BaseTest{
         try
         {
             CoreApplicationPage cp= new CoreApplicationPage();
+            cp.click_OfficialLogin();
+            HandleTab.getHandleTab(1);
             cp.enter_username("ri.jamurda").enter_password("Pass@1231")
                     .clickLogin()
                     .clickCoreApplication().
@@ -206,6 +210,8 @@ public class IncomeandAssetCertificate extends BaseTest{
         try
         {
             CoreApplicationPage cp= new CoreApplicationPage();
+            cp.click_OfficialLogin();
+            HandleTab.getHandleTab(1);
             cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
                     .clickLogin()
                     .clickCoreApplication().
@@ -241,6 +247,8 @@ public class IncomeandAssetCertificate extends BaseTest{
         try
         {
             CoreApplicationPage cp= new CoreApplicationPage();
+            cp.click_OfficialLogin();
+            HandleTab.getHandleTab(1);
             cp.enter_username("tdr.bargarh").enter_password("Pass@1231")
                     .clickLogin()
                     .clickCoreApplication().click_applicationbox().click_mypendingapplications().click_incomeandassetapplications();
@@ -288,6 +296,8 @@ public class IncomeandAssetCertificate extends BaseTest{
         try
         {
             CoreApplicationPage cp= new CoreApplicationPage();
+            cp.click_OfficialLogin();
+            HandleTab.getHandleTab(1);
             cp.enter_username("tdr.kalahand").enter_password("Pass@1231")
                     .clickLogin()
                     .clickCoreApplication().click_applicationbox();
